@@ -1,0 +1,28 @@
+{
+  "storyId": "vault.empty-closed",
+  "mode": "local-fixture",
+  "schema": "VaultEnvelope",
+  "signaturesIncluded": false,
+  "note": "An empty queue cannot accept reform and does not deduct ARCL.",
+  "value": {
+    "ok": true,
+    "schemaVersion": "1",
+    "requestId": "00000000-0000-4000-8000-000000000006",
+    "data": {
+      "head": "0",
+      "tail": "0",
+      "bankedCount": "0",
+      "nextId": null,
+      "conversionOpen": false
+    },
+    "error": null,
+    "meta": {
+      "environmentId": "31337:0x1000000000000000000000000000000000000001",
+      "asOf": "2026-09-11T00:00:00Z",
+      "indexedBlock": "100",
+      "indexedBlockHash": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "chainTip": "100",
+      "stale": false
+    }
+  }
+}

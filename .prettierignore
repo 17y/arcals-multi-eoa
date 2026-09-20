@@ -1,0 +1,12 @@
+.git/
+node_modules/
+**/dist/
+native/randomx-worker/vendor/
+native/randomx-worker/build/
+pnpm-lock.yaml
+packages/protocol/openapi/*.json
+packages/protocol/errors/catalog.json
+packages/test-fixtures/**/*.json
+packages/contract-bindings/abi/*.json
+packages/contract-bindings/manifest.json
+packages/contract-bindings/src/index.ts

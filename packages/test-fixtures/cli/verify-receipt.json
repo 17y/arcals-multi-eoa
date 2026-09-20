@@ -1,0 +1,23 @@
+{
+  "storyId": "cli.receipt.final",
+  "mode": "local-fixture",
+  "schema": "CliEnvelope",
+  "signaturesIncluded": false,
+  "note": "Receipt verification reports chain-derived final Mint state.",
+  "value": {
+    "ok": true,
+    "schemaVersion": "1",
+    "command": "verify-receipt",
+    "state": "MINT_CONFIRMED",
+    "operationId": null,
+    "chainId": "31337",
+    "wallet": "0x2000000000000000000000000000000000000002",
+    "txHash": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "data": {
+      "issuedId": "1",
+      "workVerification": "verified"
+    },
+    "error": null,
+    "asOf": "2026-09-12T00:00:00Z"
+  }
+}

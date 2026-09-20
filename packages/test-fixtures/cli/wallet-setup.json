@@ -1,0 +1,25 @@
+{
+  "storyId": "cli.wallet.manual",
+  "mode": "local-fixture",
+  "schema": "CliEnvelope",
+  "signaturesIncluded": false,
+  "note": "Manual-first wallet output does not imply unattended budget enforcement.",
+  "value": {
+    "ok": true,
+    "schemaVersion": "1",
+    "command": "wallet.setup",
+    "state": "NEEDS_USER_AUTH",
+    "operationId": null,
+    "chainId": "31337",
+    "wallet": "0x2000000000000000000000000000000000000002",
+    "txHash": null,
+    "data": {
+      "adapterId": "rpc-unlocked-local",
+      "mode": "development",
+      "secretsAcceptedByArguments": false,
+      "unattendedReady": false
+    },
+    "error": null,
+    "asOf": "2026-09-12T00:00:00Z"
+  }
+}

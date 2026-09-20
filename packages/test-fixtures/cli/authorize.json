@@ -1,0 +1,24 @@
+{
+  "storyId": "cli.authorize.wallet-enforced",
+  "mode": "local-fixture",
+  "schema": "CliEnvelope",
+  "signaturesIncluded": false,
+  "note": "Continuous mode is represented only when the wallet/account capability matrix is hard-enforced.",
+  "value": {
+    "ok": true,
+    "schemaVersion": "1",
+    "command": "authorize",
+    "state": "AUTHORIZED",
+    "operationId": null,
+    "chainId": "31337",
+    "wallet": "0x2000000000000000000000000000000000000002",
+    "txHash": null,
+    "data": {
+      "maxMints": 2,
+      "maxFeeNative": "200000000000000000",
+      "maxGasNative": "10000000000000000"
+    },
+    "error": null,
+    "asOf": "2026-09-12T00:00:00Z"
+  }
+}

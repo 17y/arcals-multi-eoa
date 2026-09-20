@@ -1,0 +1,52 @@
+{
+  "storyId": "wallet.activity-confirmed",
+  "mode": "local-fixture",
+  "schema": "WalletActivityListEnvelope",
+  "signaturesIncluded": false,
+  "note": "Only confirmed chain-derived wallet activity is public; local compute and unauthenticated actor attribution are excluded.",
+  "value": {
+    "ok": true,
+    "schemaVersion": "1",
+    "requestId": "00000000-0000-4000-8000-000000000014",
+    "data": {
+      "items": [
+        {
+          "environmentId": "31337:0x1000000000000000000000000000000000000001",
+          "wallet": "0x2000000000000000000000000000000000000002",
+          "kind": "LIQUIFY",
+          "transactionHash": "0xfefefefefefefefefefefefefefefefefefefefefefefefefefefefefefefefe",
+          "blockNumber": "110",
+          "logIndex": 7,
+          "arcalId": "1",
+          "counterparty": null,
+          "nativeDelta": "0",
+          "arclDelta": "360000000000000000000",
+          "nftDelta": -1
+        },
+        {
+          "environmentId": "31337:0x1000000000000000000000000000000000000001",
+          "wallet": "0x2000000000000000000000000000000000000002",
+          "kind": "MINT",
+          "transactionHash": "0xefefefefefefefefefefefefefefefefefefefefefefefefefefefefefefefef",
+          "blockNumber": "100",
+          "logIndex": 4,
+          "arcalId": "1",
+          "counterparty": null,
+          "nativeDelta": "-100000000000000000",
+          "arclDelta": "0",
+          "nftDelta": 1
+        }
+      ],
+      "nextCursor": "100:4"
+    },
+    "error": null,
+    "meta": {
+      "environmentId": "31337:0x1000000000000000000000000000000000000001",
+      "asOf": "2026-09-11T00:00:00Z",
+      "indexedBlock": "100",
+      "indexedBlockHash": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "chainTip": "100",
+      "stale": false
+    }
+  }
+}

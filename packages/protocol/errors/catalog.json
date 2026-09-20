@@ -1,0 +1,221 @@
+{
+  "schemaVersion": "1",
+  "entries": [
+    {
+      "code": "ACTIVE_OPERATION_EXISTS",
+      "httpStatus": 409,
+      "retryable": true,
+      "action": "RETRY_SAME_OPERATION"
+    },
+    {
+      "code": "CERTIFICATE_EXPIRED",
+      "httpStatus": 409,
+      "retryable": true,
+      "action": "RECOVER_TRANSACTION"
+    },
+    {
+      "code": "CHALLENGE_EXPIRED",
+      "httpStatus": 409,
+      "retryable": true,
+      "action": "RETRY_SAME_OPERATION"
+    },
+    {
+      "code": "CONTENT_NOT_REGISTERED",
+      "httpStatus": 409,
+      "retryable": true,
+      "action": "RETRY_SAME_OPERATION"
+    },
+    {
+      "code": "CONVERSIONS_CLOSED",
+      "httpStatus": 409,
+      "retryable": true,
+      "action": "NONE"
+    },
+    {
+      "code": "DEADLINE_EXPIRED",
+      "httpStatus": 409,
+      "retryable": true,
+      "action": "RETRY_SAME_OPERATION"
+    },
+    {
+      "code": "DEPENDENCY_UNAVAILABLE",
+      "httpStatus": 503,
+      "retryable": true,
+      "action": "RETRY_SAME_OPERATION"
+    },
+    {
+      "code": "DIRECT_VAULT_TRANSFER_FORBIDDEN",
+      "httpStatus": 422,
+      "retryable": false,
+      "action": "NONE"
+    },
+    {
+      "code": "EPOCH_EXPIRED",
+      "httpStatus": 409,
+      "retryable": true,
+      "action": "WAIT_NEXT_EPOCH"
+    },
+    {
+      "code": "EPOCH_UNAVAILABLE",
+      "httpStatus": 503,
+      "retryable": true,
+      "action": "WAIT_NEXT_EPOCH"
+    },
+    {
+      "code": "HEAD_CHANGED",
+      "httpStatus": 409,
+      "retryable": true,
+      "action": "RETRY_SAME_OPERATION"
+    },
+    {
+      "code": "IDEMPOTENCY_CONFLICT",
+      "httpStatus": 409,
+      "retryable": false,
+      "action": "NONE"
+    },
+    {
+      "code": "INDEXER_LAGGING",
+      "httpStatus": 503,
+      "retryable": true,
+      "action": "RETRY_SAME_OPERATION"
+    },
+    {
+      "code": "INDEXER_STALE",
+      "httpStatus": 503,
+      "retryable": true,
+      "action": "RETRY_SAME_OPERATION"
+    },
+    {
+      "code": "INSUFFICIENT_ALLOWANCE",
+      "httpStatus": 409,
+      "retryable": true,
+      "action": "REAUTHORIZE"
+    },
+    {
+      "code": "INSUFFICIENT_FUNDS",
+      "httpStatus": 409,
+      "retryable": true,
+      "action": "FUND_WALLET"
+    },
+    {
+      "code": "INVALID_CONTENT_PROOF",
+      "httpStatus": 422,
+      "retryable": false,
+      "action": "CONTACT_SUPPORT"
+    },
+    {
+      "code": "INVALID_SIGNATURE",
+      "httpStatus": 422,
+      "retryable": false,
+      "action": "CONTACT_SUPPORT"
+    },
+    {
+      "code": "INVALID_WORK",
+      "httpStatus": 422,
+      "retryable": false,
+      "action": "NONE"
+    },
+    {
+      "code": "LOCAL_LEDGER_BUSY",
+      "httpStatus": 409,
+      "retryable": true,
+      "action": "RETRY_SAME_OPERATION"
+    },
+    {
+      "code": "MINT_PAUSED",
+      "httpStatus": 409,
+      "retryable": true,
+      "action": "NONE"
+    },
+    {
+      "code": "NONCE_CONSUMED",
+      "httpStatus": 409,
+      "retryable": false,
+      "action": "RECOVER_TRANSACTION"
+    },
+    {
+      "code": "NOT_NFT_OWNER",
+      "httpStatus": 409,
+      "retryable": true,
+      "action": "NONE"
+    },
+    {
+      "code": "RECEIPT_CONSUMED",
+      "httpStatus": 409,
+      "retryable": false,
+      "action": "RECOVER_TRANSACTION"
+    },
+    {
+      "code": "RESOURCE_NOT_FOUND",
+      "httpStatus": 404,
+      "retryable": false,
+      "action": "NONE"
+    },
+    {
+      "code": "RPC_RATE_LIMITED",
+      "httpStatus": 429,
+      "retryable": true,
+      "action": "RETRY_SAME_OPERATION"
+    },
+    {
+      "code": "SOLD_OUT",
+      "httpStatus": 409,
+      "retryable": false,
+      "action": "NONE"
+    },
+    {
+      "code": "SUBMISSION_UNKNOWN",
+      "httpStatus": 202,
+      "retryable": true,
+      "action": "RECOVER_TRANSACTION"
+    },
+    {
+      "code": "UNTRUSTED_DEPLOYMENT",
+      "httpStatus": 409,
+      "retryable": false,
+      "action": "CONTACT_SUPPORT"
+    },
+    {
+      "code": "VAULT_EMPTY",
+      "httpStatus": 409,
+      "retryable": true,
+      "action": "RETRY_SAME_OPERATION"
+    },
+    {
+      "code": "WALLET_AUTH_REQUIRED",
+      "httpStatus": 401,
+      "retryable": false,
+      "action": "REAUTHORIZE"
+    },
+    {
+      "code": "WALLET_CAPABILITY_UNAVAILABLE",
+      "httpStatus": 409,
+      "retryable": false,
+      "action": "NONE"
+    },
+    {
+      "code": "WALLET_UNDEPLOYED",
+      "httpStatus": 409,
+      "retryable": true,
+      "action": "RETRY_SAME_OPERATION"
+    },
+    {
+      "code": "WORKER_DOWNLOAD_FAILED",
+      "httpStatus": 503,
+      "retryable": true,
+      "action": "RETRY_SAME_OPERATION"
+    },
+    {
+      "code": "WORKER_PLATFORM_UNSUPPORTED",
+      "httpStatus": 409,
+      "retryable": false,
+      "action": "CONTACT_SUPPORT"
+    },
+    {
+      "code": "WRONG_NETWORK",
+      "httpStatus": 400,
+      "retryable": false,
+      "action": "REAUTHORIZE"
+    }
+  ]
+}

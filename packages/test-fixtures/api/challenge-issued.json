@@ -1,0 +1,46 @@
+{
+  "storyId": "mint.challenge-issued",
+  "mode": "local-fixture",
+  "schema": "ChallengeEnvelope",
+  "signaturesIncluded": false,
+  "note": "The issuer signature is intentionally omitted and must be generated at test runtime.",
+  "value": {
+    "ok": true,
+    "schemaVersion": "1",
+    "requestId": "00000000-0000-4000-8000-000000000002",
+    "data": {
+      "challenge": {
+        "protocolVersion": 1,
+        "configDigest": "0xd530431dfd5c46e124eb94966bcfeccdbbf2ae9df1b239ccaaa8e567d9b33435",
+        "challengeId": "0x1111111111111111111111111111111111111111111111111111111111111111",
+        "epochId": "42",
+        "minter": "0x2000000000000000000000000000000000000002",
+        "mintNonce": "7",
+        "challengeInput": "0x516a83ffdef668d7b23645f48523fba0122c838772b39a69f792a47e78b3aa62",
+        "mintFee": "100000000000000000",
+        "validAfter": "1700000000",
+        "expiresAt": "1700001200",
+        "signerVersion": "3"
+      },
+      "issuerSignature": null,
+      "epoch": {
+        "epochId": "42",
+        "configDigest": "0xd530431dfd5c46e124eb94966bcfeccdbbf2ae9df1b239ccaaa8e567d9b33435",
+        "epochKey": "0x91e629e8a7deffb557e069d1c579ea8936c1ef135a0e4f842ce90f6a23f915c3",
+        "validFrom": "1700000000",
+        "validUntil": "1700086400",
+        "anchorBlockNumber": "123456",
+        "anchorBlockHash": "0x2222222222222222222222222222222222222222222222222222222222222222"
+      }
+    },
+    "error": null,
+    "meta": {
+      "environmentId": "31337:0x1000000000000000000000000000000000000001",
+      "asOf": "2026-09-11T00:00:00Z",
+      "indexedBlock": "100",
+      "indexedBlockHash": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "chainTip": "100",
+      "stale": false
+    }
+  }
+}

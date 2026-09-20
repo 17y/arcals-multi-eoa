@@ -1,0 +1,28 @@
+{
+  "storyId": "mint.submission-recovered",
+  "mode": "local-fixture",
+  "schema": "MintEnvelope",
+  "signaturesIncluded": false,
+  "note": "A previously unknown local submission was recovered from Core.Issued without broadcasting another Mint.",
+  "value": {
+    "ok": true,
+    "schemaVersion": "1",
+    "requestId": "00000000-0000-4000-8000-000000000009",
+    "data": {
+      "txHash": "0xcccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "status": "FINAL",
+      "issuedId": "2",
+      "receiptHash": "0xdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "workVerification": "verified"
+    },
+    "error": null,
+    "meta": {
+      "environmentId": "31337:0x1000000000000000000000000000000000000001",
+      "asOf": "2026-09-11T00:00:00Z",
+      "indexedBlock": "100",
+      "indexedBlockHash": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "chainTip": "100",
+      "stale": false
+    }
+  }
+}

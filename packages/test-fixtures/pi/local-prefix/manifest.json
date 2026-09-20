@@ -1,0 +1,76 @@
+{
+  "schemaVersion": "1",
+  "toolVersion": "0.1.0",
+  "protocolVersion": 1,
+  "mode": "local-fixture",
+  "datasetId": "arcals-pi-local-prefix-v1",
+  "createdAt": "2026-09-12T00:00:00Z",
+  "digitCount": "1440",
+  "digitsPerArcal": 360,
+  "packedBytesPerArcal": 180,
+  "realLeafCount": "4",
+  "treeHeight": 2,
+  "treeLeafCount": "4",
+  "paddingLeafCount": "0",
+  "raw": {
+    "path": "raw.pi.txt",
+    "bytes": "1440",
+    "sha256": "cff97d5efa0c4aaf22b1a3310fe6e0a54d20bcc4d3550ab0ee30ee2536b08e9a"
+  },
+  "packed": {
+    "path": "packed.pi.bcd",
+    "bytes": "720",
+    "sha256": "585efb213be1a7097fe619e440f737ba1a673bd3841a3eb052bc29e25ef8f871"
+  },
+  "tree": {
+    "root": "0x9dea63918d034033b52361d52d808fd975ab93f230a689c66c5c1b810ce68623",
+    "levels": [
+      {
+        "level": 0,
+        "nodeCount": "4",
+        "path": "tree/level-00.bin",
+        "bytes": "128",
+        "sha256": "86fbc8cc576246b0c59352bf4d7fc1ae3f686b8126cde785d483234a88f0d558"
+      },
+      {
+        "level": 1,
+        "nodeCount": "2",
+        "path": "tree/level-01.bin",
+        "bytes": "64",
+        "sha256": "6d99768628398c1d692f4b050b0215072449cb085aba3697378e89969500bf65"
+      },
+      {
+        "level": 2,
+        "nodeCount": "1",
+        "path": "tree/level-02.bin",
+        "bytes": "32",
+        "sha256": "29cab78eebd95e51f867dfcd9b5423614ad236ff00adfdacf2ecdf24e668adc6"
+      }
+    ]
+  },
+  "sourceMethods": [
+    {
+      "name": "repository Chudnovsky reference",
+      "kind": "calculation",
+      "version": "0.1.0",
+      "sourceCommit": null,
+      "license": "UNLICENSED repository test implementation",
+      "sourceUrl": null,
+      "status": "PARTIAL",
+      "evidence": "first 1440 decimal digits"
+    },
+    {
+      "name": "repository Machin reference",
+      "kind": "calculation",
+      "version": "0.1.0",
+      "sourceCommit": null,
+      "license": "UNLICENSED repository test implementation",
+      "sourceUrl": null,
+      "status": "PARTIAL",
+      "evidence": "first 1440 decimal digits"
+    }
+  ],
+  "mirrors": [],
+  "productionRootVerified": false,
+  "productionAuthorized": false
+}

@@ -1,0 +1,16 @@
+{
+  "schemaVersion": "1",
+  "mode": "local-fixture",
+  "contract": "mirror",
+  "eventName": "MetadataUpdate",
+  "blockNumber": "100",
+  "transactionHash": "0x000000000000000000000000000000000000000000000000000000000000000d",
+  "logIndex": 12,
+  "topics": [
+    "0xf8e1a15aba9398e019f0b49df1a4fde98ee17ae345cb5f6b5e2c27f5033e8ce7"
+  ],
+  "data": "0x0000000000000000000000000000000000000000000000000000000000000001",
+  "args": {
+    "_tokenId": "1"
+  }
+}

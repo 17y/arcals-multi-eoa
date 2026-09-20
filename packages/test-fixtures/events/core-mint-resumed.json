@@ -1,0 +1,17 @@
+{
+  "schemaVersion": "1",
+  "mode": "local-fixture",
+  "contract": "core",
+  "eventName": "MintResumed",
+  "blockNumber": "100",
+  "transactionHash": "0x0000000000000000000000000000000000000000000000000000000000000009",
+  "logIndex": 8,
+  "topics": [
+    "0xe948b2772479c24cbfd0b302264d242952a7c1e8d102da5066402987ad709e7b",
+    "0x0000000000000000000000002000000000000000000000000000000000000002"
+  ],
+  "data": "0x",
+  "args": {
+    "caller": "0x2000000000000000000000000000000000000002"
+  }
+}

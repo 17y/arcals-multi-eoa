@@ -1,0 +1,28 @@
+{
+  "storyId": "cli.status.pending",
+  "mode": "local-fixture",
+  "schema": "CliEnvelope",
+  "signaturesIncluded": false,
+  "note": "Status retains and displays unresolved operations after restart.",
+  "value": {
+    "ok": true,
+    "schemaVersion": "1",
+    "command": "status",
+    "state": "READY",
+    "operationId": null,
+    "chainId": "31337",
+    "wallet": "0x2000000000000000000000000000000000000002",
+    "txHash": null,
+    "data": {
+      "stopRequested": false,
+      "unresolved": [
+        {
+          "operationId": "10000000-0000-4000-8000-000000000001",
+          "state": "SUBMISSION_UNKNOWN"
+        }
+      ]
+    },
+    "error": null,
+    "asOf": "2026-09-12T00:00:00Z"
+  }
+}

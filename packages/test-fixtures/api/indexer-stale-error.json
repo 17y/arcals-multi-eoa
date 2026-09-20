@@ -1,0 +1,30 @@
+{
+  "storyId": "system.indexer-stale",
+  "mode": "local-fixture",
+  "schema": "ErrorEnvelope",
+  "signaturesIncluded": false,
+  "note": "Chain state remains authoritative while the read model is stale.",
+  "value": {
+    "ok": false,
+    "schemaVersion": "1",
+    "requestId": "00000000-0000-4000-8000-000000000008",
+    "data": null,
+    "error": {
+      "code": "INDEXER_STALE",
+      "message": "Indexed data is behind the configured freshness threshold.",
+      "retryable": true,
+      "retryAfterMs": 1000,
+      "action": "RETRY_SAME_OPERATION",
+      "operationId": null,
+      "details": null
+    },
+    "meta": {
+      "environmentId": "31337:0x1000000000000000000000000000000000000001",
+      "asOf": "2026-09-11T00:00:00Z",
+      "indexedBlock": "90",
+      "indexedBlockHash": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "chainTip": "100",
+      "stale": true
+    }
+  }
+}

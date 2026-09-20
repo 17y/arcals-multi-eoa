@@ -1,0 +1,30 @@
+{
+  "storyId": "read.arcal-not-found",
+  "mode": "local-fixture",
+  "schema": "ErrorEnvelope",
+  "signaturesIncluded": false,
+  "note": "The API returns a stable 404 code instead of disguising a missing resource as an unavailable dependency.",
+  "value": {
+    "ok": false,
+    "schemaVersion": "1",
+    "requestId": "00000000-0000-4000-8000-000000000013",
+    "data": null,
+    "error": {
+      "code": "RESOURCE_NOT_FOUND",
+      "message": "The requested chain projection does not exist.",
+      "retryable": false,
+      "retryAfterMs": null,
+      "action": "NONE",
+      "operationId": null,
+      "details": null
+    },
+    "meta": {
+      "environmentId": "31337:0x1000000000000000000000000000000000000001",
+      "asOf": "2026-09-11T00:00:00Z",
+      "indexedBlock": "100",
+      "indexedBlockHash": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "chainTip": "100",
+      "stale": false
+    }
+  }
+}

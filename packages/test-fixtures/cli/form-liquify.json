@@ -1,0 +1,24 @@
+{
+  "storyId": "cli.form.liquified",
+  "mode": "local-fixture",
+  "schema": "CliEnvelope",
+  "signaturesIncluded": false,
+  "note": "Liquify explicitly approves then atomically exchanges one registered Arcal for UNIT ARCL.",
+  "value": {
+    "ok": true,
+    "schemaVersion": "1",
+    "command": "form.liquify",
+    "state": "CONVERSION_CONFIRMED",
+    "operationId": "10000000-0000-4000-8000-000000000001",
+    "chainId": "31337",
+    "wallet": "0x2000000000000000000000000000000000000002",
+    "txHash": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "data": {
+      "id": "1",
+      "unit": "360000000000000000000",
+      "tokenRecipient": "0x2000000000000000000000000000000000000002"
+    },
+    "error": null,
+    "asOf": "2026-09-12T00:00:00Z"
+  }
+}

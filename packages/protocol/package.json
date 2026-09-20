@@ -1,0 +1,32 @@
+{
+  "name": "@arcals/protocol",
+  "version": "0.4.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./browser": {
+      "types": "./dist/browser.d.ts",
+      "import": "./dist/browser.js"
+    }
+  },
+  "files": [
+    "dist",
+    "errors",
+    "openapi"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "ajv": "8.20.0",
+    "ajv-formats": "3.0.1",
+    "json-canonicalize": "3.0.1",
+    "viem": "2.56.3"
+  }
+}

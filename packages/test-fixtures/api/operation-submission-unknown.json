@@ -1,0 +1,34 @@
+{
+  "storyId": "mint.submission-unknown",
+  "mode": "local-fixture",
+  "schema": "OperationEnvelope",
+  "signaturesIncluded": false,
+  "note": "Unknown submission must recover this original handle before any retry.",
+  "value": {
+    "ok": true,
+    "schemaVersion": "1",
+    "requestId": "00000000-0000-4000-8000-000000000004",
+    "data": {
+      "operationId": "10000000-0000-4000-8000-000000000004",
+      "state": "SUBMISSION_UNKNOWN",
+      "walletHandle": {
+        "kind": "transaction",
+        "chainId": "31337",
+        "hash": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "sender": "0x2000000000000000000000000000000000000002",
+        "transactionNonce": "9"
+      },
+      "stopRequested": false,
+      "updatedAt": "2026-09-11T00:00:00Z"
+    },
+    "error": null,
+    "meta": {
+      "environmentId": "31337:0x1000000000000000000000000000000000000001",
+      "asOf": "2026-09-11T00:00:00Z",
+      "indexedBlock": "100",
+      "indexedBlockHash": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "chainTip": "100",
+      "stale": false
+    }
+  }
+}

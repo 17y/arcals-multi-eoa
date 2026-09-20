@@ -1,0 +1,47 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Arcals browser Worker test</title>
+<script type="module">
+  // Mirrors the website: fetch, verify SHA-256, start Blob module Workers.
+  const params = new URLSearchParams(location.search);
+  const workers = Number(params.get("workers") ?? 4);
+  const rounds = Number(params.get("rounds") ?? 5);
+  const sums = Object.fromEntries((await (await fetch("SHA256SUMS")).text()).trim().split("\n").map((l) => l.split(/\s+/).reverse()));
+  const sha = async (bytes) => Array.from(new Uint8Array(await crypto.subtle.digest("SHA-256", bytes)), (b) => b.toString(16).padStart(2, "0")).join("");
+  const script = await (await fetch("randomx-browser-worker.mjs")).arrayBuffer();
+  const wasm = await (await fetch("randomx-browser.wasm")).arrayBuffer();
+  if (await sha(script) !== sums["randomx-browser-worker.mjs"] || await sha(wasm) !== sums["randomx-browser.wasm"]) {
+    window.__result = { ok: false, error: "SHA-256 mismatch" };
+    throw new Error("SHA-256 mismatch");
+  }
+  const scriptUrl = URL.createObjectURL(new Blob([script], { type: "text/javascript" }));
+  const epochKey = "0x36c80fe9201e6d2644b5901f0a17e82773d127223e4e6f4ab1c7882677c934de";
+  const target = "361850278866613110698659328152149712041468702080126762623304950024728530123";
+  const random32 = () => "0x" + Array.from(crypto.getRandomValues(new Uint8Array(32)), (b) => b.toString(16).padStart(2, "0")).join("");
+  const runJob = () => new Promise((resolve, reject) => {
+    const jobId = crypto.randomUUID();
+    const challengeInput = random32();
+    const pool = Array.from({ length: workers }, () => new Worker(scriptUrl, { type: "module" }));
+    const started = performance.now();
+    let readyAt = null; let errors = 0;
+    pool.forEach((worker, index) => {
+      worker.onmessage = ({ data }) => {
+        if (data.type === "READY" && readyAt === null) readyAt = performance.now() - started;
+        if (data.type === "SOLUTION") {
+          pool.forEach((w) => w.terminate());
+          resolve({ challengeInput, ...data, wallMs: Math.round(performance.now() - started), prepareMs: Math.round(readyAt ?? 0) });
+        }
+        if (data.type === "ERROR" && (errors += 1) === workers) { pool.forEach((w) => w.terminate()); reject(new Error(data.code + ": " + data.message)); }
+      };
+      worker.onerror = (e) => reject(new Error(e.message));
+      worker.postMessage({ type: "START", protocolVersion: 1, jobId, wasmBytes: wasm, algorithmId: "0x8ca1fa54766ca6df7bcbbb2a8da08bee94dd5ed9f0055f5e90331a9028af77a9",
+        parameterDigest: "0x207c0c80715507e7133d2b79d6067d774c24a06c3f2cf46a63f1dfdf74fab8f1", target, epochKey, challengeInput,
+        expiresAt: String(Math.floor(Date.now() / 1000) + 900), startNonce: String(index), stride: workers });
+    });
+  });
+  const results = [];
+  try {
+    for (let round = 0; round < rounds; round += 1) results.push(await runJob());
+    window.__result = { ok: true, workers, userAgent: navigator.userAgent, cores: navigator.hardwareConcurrency, results };
+  } catch (error) { window.__result = { ok: false, error: String(error) }; }
+</script>

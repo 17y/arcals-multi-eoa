@@ -1,0 +1,48 @@
+{
+  "schemaVersion": "1",
+  "packageVersion": "0.5.0",
+  "generator": "scripts/generate-bindings.mjs",
+  "entries": [
+    {
+      "contractName": "IArcalsErrors",
+      "file": "abi/IArcalsErrors.json",
+      "sha256": "bc48188bd0cc80ce0f21889d92e27848873c1bff4a9b31a2fc77e74584d3a826"
+    },
+    {
+      "contractName": "IArcalsCore",
+      "file": "abi/IArcalsCore.json",
+      "sha256": "146d81856ef30d4510e0893592c04a7194ada74b6249643c317a804c6d071f1f"
+    },
+    {
+      "contractName": "IARCLBase",
+      "file": "abi/IARCLBase.json",
+      "sha256": "50b82a37198939cb6ec7a7d5bc90fc8c38c19dbb2459b864a062dd8b393eb702"
+    },
+    {
+      "contractName": "IArcalMirror",
+      "file": "abi/IArcalMirror.json",
+      "sha256": "3bd234825155e0ec2a9494bf49373b98ea715f42c204dc96e89b750ebdafe6ec"
+    },
+    {
+      "contractName": "IArcalsVault",
+      "file": "abi/IArcalsVault.json",
+      "sha256": "7ffdedc1b9633b2875aa22a94fd7f88705485052f84b09002e021906459d3a81"
+    },
+    {
+      "contractName": "IMintController",
+      "file": "abi/IMintController.json",
+      "sha256": "705aa6b4d63a805705f73384c0cc6899597600042e4f6ea338ad59797368e358"
+    },
+    {
+      "contractName": "IRevenueTreasury",
+      "file": "abi/IRevenueTreasury.json",
+      "sha256": "78866080a3e8b1576e8ed7e7ecc1292507de375eb2fd5190bb5ca20dda12e36b"
+    },
+    {
+      "contractName": "IArcalsContentRegistrar",
+      "file": "abi/IArcalsContentRegistrar.json",
+      "sha256": "dc5adb139572146ba7c56a9b4400b5f69e365c6867660c8bcc8e19884943f5ee"
+    }
+  ],
+  "aggregateSha256": "2aa8d3b33c8e65bdb3963ff45a2b186b96050821c7cdfc057af14cfb2155f763"
+}

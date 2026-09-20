@@ -1,0 +1,1006 @@
+[
+  {
+    "type": "function",
+    "name": "activeWorkConfigDigest",
+    "inputs": [
+      {
+        "name": "epochId",
+        "type": "uint64",
+        "internalType": "uint64"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "configDigest",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      },
+      {
+        "name": "exists",
+        "type": "bool",
+        "internalType": "bool"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "configureEpochPublisher",
+    "inputs": [
+      {
+        "name": "epochPublisher",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "configureSigners",
+    "inputs": [
+      {
+        "name": "issuerSigner",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "verifierSigner",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "signerVersion",
+        "type": "uint64",
+        "internalType": "uint64"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "core",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "epoch",
+    "inputs": [
+      {
+        "name": "epochId",
+        "type": "uint64",
+        "internalType": "uint64"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "commitment",
+        "type": "tuple",
+        "internalType": "struct ArcalsTypes.EpochCommitment",
+        "components": [
+          {
+            "name": "epochId",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "configDigest",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          },
+          {
+            "name": "epochKey",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          },
+          {
+            "name": "validFrom",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "validUntil",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "anchorBlockNumber",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "anchorBlockHash",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          }
+        ]
+      },
+      {
+        "name": "exists",
+        "type": "bool",
+        "internalType": "bool"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "epochPublisher",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "governance",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "guardian",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "issuerSigner",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "mint",
+    "inputs": [
+      {
+        "name": "challenge",
+        "type": "tuple",
+        "internalType": "struct ArcalsTypes.Challenge",
+        "components": [
+          {
+            "name": "protocolVersion",
+            "type": "uint32",
+            "internalType": "uint32"
+          },
+          {
+            "name": "configDigest",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          },
+          {
+            "name": "challengeId",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          },
+          {
+            "name": "epochId",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "minter",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "mintNonce",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "challengeInput",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          },
+          {
+            "name": "mintFee",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "validAfter",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "expiresAt",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "signerVersion",
+            "type": "uint64",
+            "internalType": "uint64"
+          }
+        ]
+      },
+      {
+        "name": "issuerSignature",
+        "type": "bytes",
+        "internalType": "bytes"
+      },
+      {
+        "name": "certificate",
+        "type": "tuple",
+        "internalType": "struct ArcalsTypes.WorkCertificate",
+        "components": [
+          {
+            "name": "protocolVersion",
+            "type": "uint32",
+            "internalType": "uint32"
+          },
+          {
+            "name": "challengeHash",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          },
+          {
+            "name": "workNonce",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "randomxHash",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          },
+          {
+            "name": "issuedAt",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "expiresAt",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "signerVersion",
+            "type": "uint64",
+            "internalType": "uint64"
+          }
+        ]
+      },
+      {
+        "name": "verifierSignature",
+        "type": "bytes",
+        "internalType": "bytes"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "id",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "payable"
+  },
+  {
+    "type": "function",
+    "name": "mintEncoded",
+    "inputs": [
+      {
+        "name": "payload",
+        "type": "bytes",
+        "internalType": "bytes"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "id",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "payable"
+  },
+  {
+    "type": "function",
+    "name": "pauseMint",
+    "inputs": [],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "registerEpoch",
+    "inputs": [
+      {
+        "name": "epoch",
+        "type": "tuple",
+        "internalType": "struct ArcalsTypes.EpochCommitment",
+        "components": [
+          {
+            "name": "epochId",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "configDigest",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          },
+          {
+            "name": "epochKey",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          },
+          {
+            "name": "validFrom",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "validUntil",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "anchorBlockNumber",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "anchorBlockHash",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          }
+        ]
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "registerWorkConfig",
+    "inputs": [
+      {
+        "name": "config",
+        "type": "tuple",
+        "internalType": "struct ArcalsTypes.WorkConfigV1",
+        "components": [
+          {
+            "name": "protocolVersion",
+            "type": "uint32",
+            "internalType": "uint32"
+          },
+          {
+            "name": "algorithmId",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          },
+          {
+            "name": "parameterDigest",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          },
+          {
+            "name": "epochSeconds",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "keyLeadSeconds",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "maxChallengeTtl",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "maxCertificateTtl",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "target",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "effectiveEpoch",
+            "type": "uint64",
+            "internalType": "uint64"
+          }
+        ]
+      }
+    ],
+    "outputs": [
+      {
+        "name": "configDigest",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      }
+    ],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "signerVersion",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint64",
+        "internalType": "uint64"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "verifierSigner",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "workConfig",
+    "inputs": [
+      {
+        "name": "configDigest",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "config",
+        "type": "tuple",
+        "internalType": "struct ArcalsTypes.WorkConfigV1",
+        "components": [
+          {
+            "name": "protocolVersion",
+            "type": "uint32",
+            "internalType": "uint32"
+          },
+          {
+            "name": "algorithmId",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          },
+          {
+            "name": "parameterDigest",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          },
+          {
+            "name": "epochSeconds",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "keyLeadSeconds",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "maxChallengeTtl",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "maxCertificateTtl",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "target",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "effectiveEpoch",
+            "type": "uint64",
+            "internalType": "uint64"
+          }
+        ]
+      },
+      {
+        "name": "exists",
+        "type": "bool",
+        "internalType": "bool"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "workConfigCount",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "workGenesisTime",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint64",
+        "internalType": "uint64"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "event",
+    "name": "EpochPublisherConfigured",
+    "inputs": [
+      {
+        "name": "epochPublisher",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "EpochRegistered",
+    "inputs": [
+      {
+        "name": "epochId",
+        "type": "uint64",
+        "indexed": true,
+        "internalType": "uint64"
+      },
+      {
+        "name": "configDigest",
+        "type": "bytes32",
+        "indexed": true,
+        "internalType": "bytes32"
+      },
+      {
+        "name": "epochKey",
+        "type": "bytes32",
+        "indexed": false,
+        "internalType": "bytes32"
+      },
+      {
+        "name": "validFrom",
+        "type": "uint64",
+        "indexed": false,
+        "internalType": "uint64"
+      },
+      {
+        "name": "validUntil",
+        "type": "uint64",
+        "indexed": false,
+        "internalType": "uint64"
+      },
+      {
+        "name": "anchorBlockNumber",
+        "type": "uint64",
+        "indexed": false,
+        "internalType": "uint64"
+      },
+      {
+        "name": "anchorBlockHash",
+        "type": "bytes32",
+        "indexed": false,
+        "internalType": "bytes32"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "SignersConfigured",
+    "inputs": [
+      {
+        "name": "issuerSigner",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "verifierSigner",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "signerVersion",
+        "type": "uint64",
+        "indexed": false,
+        "internalType": "uint64"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "WorkAccepted",
+    "inputs": [
+      {
+        "name": "receiptHash",
+        "type": "bytes32",
+        "indexed": true,
+        "internalType": "bytes32"
+      },
+      {
+        "name": "challengeId",
+        "type": "bytes32",
+        "indexed": true,
+        "internalType": "bytes32"
+      },
+      {
+        "name": "epochId",
+        "type": "uint64",
+        "indexed": false,
+        "internalType": "uint64"
+      },
+      {
+        "name": "signerVersion",
+        "type": "uint64",
+        "indexed": false,
+        "internalType": "uint64"
+      },
+      {
+        "name": "configDigest",
+        "type": "bytes32",
+        "indexed": false,
+        "internalType": "bytes32"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "WorkConfigRegistered",
+    "inputs": [
+      {
+        "name": "configDigest",
+        "type": "bytes32",
+        "indexed": true,
+        "internalType": "bytes32"
+      },
+      {
+        "name": "effectiveEpoch",
+        "type": "uint64",
+        "indexed": false,
+        "internalType": "uint64"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "error",
+    "name": "CertificateExpired",
+    "inputs": [
+      {
+        "name": "expiresAt",
+        "type": "uint64",
+        "internalType": "uint64"
+      }
+    ]
+  },
+  {
+    "type": "error",
+    "name": "ChallengeExpired",
+    "inputs": [
+      {
+        "name": "expiresAt",
+        "type": "uint64",
+        "internalType": "uint64"
+      }
+    ]
+  },
+  {
+    "type": "error",
+    "name": "ContentNotRegistered",
+    "inputs": [
+      {
+        "name": "id",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ]
+  },
+  {
+    "type": "error",
+    "name": "ConversionsClosed",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "DeadlineExpired",
+    "inputs": [
+      {
+        "name": "deadline",
+        "type": "uint64",
+        "internalType": "uint64"
+      }
+    ]
+  },
+  {
+    "type": "error",
+    "name": "DirectVaultTransferForbidden",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "EpochExpired",
+    "inputs": [
+      {
+        "name": "epochId",
+        "type": "uint64",
+        "internalType": "uint64"
+      }
+    ]
+  },
+  {
+    "type": "error",
+    "name": "EpochUnavailable",
+    "inputs": [
+      {
+        "name": "epochId",
+        "type": "uint64",
+        "internalType": "uint64"
+      }
+    ]
+  },
+  {
+    "type": "error",
+    "name": "HeadChanged",
+    "inputs": [
+      {
+        "name": "expected",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "actual",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ]
+  },
+  {
+    "type": "error",
+    "name": "InsufficientAllowance",
+    "inputs": [
+      {
+        "name": "owner",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "actual",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "required",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ]
+  },
+  {
+    "type": "error",
+    "name": "InvalidContentProof",
+    "inputs": [
+      {
+        "name": "id",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ]
+  },
+  {
+    "type": "error",
+    "name": "InvalidReserveBatch",
+    "inputs": [
+      {
+        "name": "count",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ]
+  },
+  {
+    "type": "error",
+    "name": "InvalidSignature",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "InvalidWork",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "MintIsPaused",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "NonceConsumed",
+    "inputs": [
+      {
+        "name": "minter",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "nonce",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ]
+  },
+  {
+    "type": "error",
+    "name": "NotNftOwner",
+    "inputs": [
+      {
+        "name": "id",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "caller",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "owner",
+        "type": "address",
+        "internalType": "address"
+      }
+    ]
+  },
+  {
+    "type": "error",
+    "name": "ProtocolReentrancy",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "ReceiptConsumed",
+    "inputs": [
+      {
+        "name": "receiptHash",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      },
+      {
+        "name": "issuedId",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ]
+  },
+  {
+    "type": "error",
+    "name": "ReserveExhausted",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "SoldOut",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "Unauthorized",
+    "inputs": [
+      {
+        "name": "caller",
+        "type": "address",
+        "internalType": "address"
+      }
+    ]
+  },
+  {
+    "type": "error",
+    "name": "UnsupportedProtocolVersion",
+    "inputs": [
+      {
+        "name": "actual",
+        "type": "uint32",
+        "internalType": "uint32"
+      }
+    ]
+  },
+  {
+    "type": "error",
+    "name": "VaultEmpty",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "WrongMintFee",
+    "inputs": [
+      {
+        "name": "actual",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "expected",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ]
+  },
+  {
+    "type": "error",
+    "name": "WrongMinter",
+    "inputs": [
+      {
+        "name": "caller",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "minter",
+        "type": "address",
+        "internalType": "address"
+      }
+    ]
+  },
+  {
+    "type": "error",
+    "name": "ZeroAddress",
+    "inputs": []
+  }
+]

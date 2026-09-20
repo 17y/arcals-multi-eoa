@@ -1,0 +1,44 @@
+{
+  "schemaVersion": "1",
+  "workerVersion": "0.1.0",
+  "protocolVersion": 1,
+  "algorithmId": "0x8ca1fa54766ca6df7bcbbb2a8da08bee94dd5ed9f0055f5e90331a9028af77a9",
+  "parameterDigest": "0x207c0c80715507e7133d2b79d6067d774c24a06c3f2cf46a63f1dfdf74fab8f1",
+  "parameterManifest": {
+    "schemaVersion": "1",
+    "algorithm": "RandomX",
+    "algorithmVersion": "2.0.1",
+    "algorithmId": "0x8ca1fa54766ca6df7bcbbb2a8da08bee94dd5ed9f0055f5e90331a9028af77a9",
+    "upstreamCommit": "aaafe71322df6602c21a5c72937ac284724ae561",
+    "resultPatchSha256": "eb74b4dd88455052a78485836171845ba566851d4e8b569b1a7e719158848d46",
+    "resultParameters": {
+      "vmVersion": 2,
+      "argonSalt": "Arcals-RandomX-v1",
+      "argonMemoryKiB": 262144,
+      "argonIterations": 3,
+      "argonLanes": 1,
+      "cacheAccesses": 8,
+      "superscalarLatency": 170,
+      "datasetBaseBytes": "2147483648",
+      "datasetExtraBytes": "33554368",
+      "programSize": 384,
+      "programIterations": 2048,
+      "programCount": 8
+    }
+  },
+  "source": {
+    "upstreamRepository": "https://github.com/tevador/RandomX.git",
+    "upstreamVersion": "2.0.1",
+    "upstreamCommit": "aaafe71322df6602c21a5c72937ac284724ae561",
+    "upstreamLicense": "BSD-3-Clause",
+    "submodulePath": "native/randomx-worker/vendor/randomx",
+    "patchPath": "native/randomx-worker/patches/0001-arcals-argon-salt.patch",
+    "patchSha256": "eb74b4dd88455052a78485836171845ba566851d4e8b569b1a7e719158848d46"
+  },
+  "vectors": {
+    "inputHex": "0x516a83ffdef668d7b23645f48523fba0122c838772b39a69f792a47e78b3aa620807060504030201",
+    "upstreamUnmodifiedHash": "0xc9038e72c2929b586bde58289ba56db83d550e861b70aa77f01e1812872f9247",
+    "arcalsForkHash": "0x4a5f3a5595aa1595a758533f6f5bde8bc9cc96f49bfb0a6cfd370eb36a90d356",
+    "saltChangesOutput": true
+  }
+}

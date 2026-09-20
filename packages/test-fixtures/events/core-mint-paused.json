@@ -1,0 +1,17 @@
+{
+  "schemaVersion": "1",
+  "mode": "local-fixture",
+  "contract": "core",
+  "eventName": "MintPaused",
+  "blockNumber": "100",
+  "transactionHash": "0x0000000000000000000000000000000000000000000000000000000000000008",
+  "logIndex": 7,
+  "topics": [
+    "0xee9b45d4bbbf616909699035be16f077b7459c8d4db74944d4e27d84f15faf34",
+    "0x0000000000000000000000002000000000000000000000000000000000000002"
+  ],
+  "data": "0x",
+  "args": {
+    "caller": "0x2000000000000000000000000000000000000002"
+  }
+}

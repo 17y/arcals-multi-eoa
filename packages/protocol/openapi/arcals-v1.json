@@ -1,0 +1,3021 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Arcals API",
+    "version": "0.2.0",
+    "description": "Versioned Challenge, work, recovery, content, Vault, and read-model API. Chain events remain authoritative."
+  },
+  "servers": [
+    {
+      "url": "/",
+      "description": "Environment-bound server"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Auth"
+    },
+    {
+      "name": "Work"
+    },
+    {
+      "name": "Operations"
+    },
+    {
+      "name": "Read"
+    },
+    {
+      "name": "Content"
+    },
+    {
+      "name": "System"
+    }
+  ],
+  "paths": {
+    "/v1/auth/nonce": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "operationId": "createAuthNonce",
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 16,
+              "maxLength": 128
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AuthNonceRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Authentication nonce",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthNonceEnvelope"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Structured Arcals error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/auth/session": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "operationId": "createAuthSession",
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 16,
+              "maxLength": 128
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AuthSessionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Authenticated session",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthSessionEnvelope"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Structured Arcals error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/config": {
+      "get": {
+        "tags": [
+          "System"
+        ],
+        "operationId": "getConfig",
+        "responses": {
+          "200": {
+            "description": "Trusted environment configuration",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConfigEnvelope"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Structured Arcals error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/challenges": {
+      "post": {
+        "tags": [
+          "Work"
+        ],
+        "operationId": "createChallenge",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 16,
+              "maxLength": 128
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChallengeRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Wallet-bound Challenge",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChallengeEnvelope"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Structured Arcals error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/work/verify": {
+      "post": {
+        "tags": [
+          "Work"
+        ],
+        "operationId": "submitWorkVerification",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 16,
+              "maxLength": 128
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WorkVerifyRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Verification job accepted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkAcceptedEnvelope"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Structured Arcals error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/work/jobs/{jobId}": {
+      "get": {
+        "tags": [
+          "Work"
+        ],
+        "operationId": "getWorkJob",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "jobId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Verification job state",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkJobEnvelope"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Structured Arcals error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/operations/{operationId}": {
+      "get": {
+        "tags": [
+          "Operations"
+        ],
+        "operationId": "getOperation",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "operationId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Durable operation state",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OperationEnvelope"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Structured Arcals error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/operations/{operationId}/transaction": {
+      "post": {
+        "tags": [
+          "Operations"
+        ],
+        "operationId": "associateOperationTransaction",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "operationId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 16,
+              "maxLength": 128
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssociateTransactionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated durable operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OperationEnvelope"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Structured Arcals error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/mints/{txHash}": {
+      "get": {
+        "tags": [
+          "Read"
+        ],
+        "operationId": "getMint",
+        "parameters": [
+          {
+            "name": "txHash",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Bytes32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Mint chain state",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MintEnvelope"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Structured Arcals error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/arcals/{id}": {
+      "get": {
+        "tags": [
+          "Read"
+        ],
+        "operationId": "getArcal",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/ArcalIdString"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Arcal chain projection",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ArcalEnvelope"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Structured Arcals error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/public/config": {
+      "get": {
+        "tags": [
+          "Read"
+        ],
+        "operationId": "getPublicConfig",
+        "description": "Stable public surface: network, contract addresses and frozen protocol parameters.",
+        "responses": {
+          "200": {
+            "description": "Public configuration",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Structured Arcals error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/public/status": {
+      "get": {
+        "tags": [
+          "Read"
+        ],
+        "operationId": "getPublicStatus",
+        "description": "Live protocol state, Mint counters and read-model freshness. Safe to poll every 5 seconds.",
+        "responses": {
+          "200": {
+            "description": "Public status",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Structured Arcals error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/public/skill": {
+      "get": {
+        "tags": [
+          "Read"
+        ],
+        "operationId": "getPublicSkill",
+        "description": "Where to install the official Agent Skill and CLI.",
+        "responses": {
+          "200": {
+            "description": "Skill release pointer",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Structured Arcals error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/arcals/{id}/image.svg": {
+      "get": {
+        "tags": [
+          "Content"
+        ],
+        "operationId": "getArcalImage",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/ArcalIdString"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Arcal artwork, identical to the on-chain renderer output",
+            "content": {
+              "image/svg+xml": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Structured Arcals error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/wallets/{address}/arcals": {
+      "get": {
+        "tags": [
+          "Read"
+        ],
+        "operationId": "listWalletArcals",
+        "parameters": [
+          {
+            "name": "address",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Address"
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Current owner index",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ArcalListEnvelope"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Structured Arcals error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/wallets/{address}/activity": {
+      "get": {
+        "tags": [
+          "Read"
+        ],
+        "operationId": "listWalletActivity",
+        "parameters": [
+          {
+            "name": "address",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Address"
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Confirmed wallet-related Arcals activity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WalletActivityListEnvelope"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Structured Arcals error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/vault": {
+      "get": {
+        "tags": [
+          "Read"
+        ],
+        "operationId": "getVault",
+        "responses": {
+          "200": {
+            "description": "Vault FIFO state",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VaultEnvelope"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Structured Arcals error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/vault/items": {
+      "get": {
+        "tags": [
+          "Read"
+        ],
+        "operationId": "listVaultItems",
+        "parameters": [
+          {
+            "name": "cursor",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Vault FIFO items",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VaultItemsEnvelope"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Structured Arcals error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/pi/{id}/proof": {
+      "get": {
+        "tags": [
+          "Content"
+        ],
+        "operationId": "getPiProof",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/ArcalIdString"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deterministic Pi proof",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PiProofEnvelope"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Structured Arcals error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/stats": {
+      "get": {
+        "tags": [
+          "Read"
+        ],
+        "operationId": "getStats",
+        "responses": {
+          "200": {
+            "description": "Single-snapshot protocol statistics",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatsEnvelope"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Structured Arcals error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/health": {
+      "get": {
+        "tags": [
+          "System"
+        ],
+        "operationId": "getHealth",
+        "responses": {
+          "200": {
+            "description": "Public dependency health",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthEnvelope"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Structured Arcals error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "opaque"
+      }
+    },
+    "schemas": {
+      "DecimalString": {
+        "type": "string",
+        "format": "decimal-uint256"
+      },
+      "Uint64String": {
+        "type": "string",
+        "format": "decimal-uint64"
+      },
+      "ArcalIdString": {
+        "type": "string",
+        "pattern": "^(?:[1-9][0-9]{0,5}|1000000)$"
+      },
+      "Address": {
+        "type": "string",
+        "pattern": "^0x[0-9a-f]{40}$"
+      },
+      "Bytes32": {
+        "type": "string",
+        "pattern": "^0x[0-9a-fA-F]{64}$"
+      },
+      "Signature": {
+        "type": "string",
+        "format": "ecdsa-signature"
+      },
+      "WalletAuthSignature": {
+        "type": "string",
+        "pattern": "^0x(?:[0-9a-fA-F]{2}){1,2048}$"
+      },
+      "PackedPiDigits": {
+        "type": "string",
+        "format": "pi-bcd-360"
+      },
+      "DatasetId": {
+        "type": "string",
+        "pattern": "^[a-z0-9][a-z0-9._-]{0,127}$"
+      },
+      "Rfc3339": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "Uuid": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "ApiMeta": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "environmentId": {
+            "$ref": "#/components/schemas/EnvironmentId"
+          },
+          "asOf": {
+            "$ref": "#/components/schemas/Rfc3339"
+          },
+          "indexedBlock": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DecimalString"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "indexedBlockHash": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Bytes32"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "chainTip": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DecimalString"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "stale": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "environmentId",
+          "asOf",
+          "indexedBlock",
+          "indexedBlockHash",
+          "chainTip",
+          "stale"
+        ],
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "stale": {
+                  "const": false
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "indexedBlock": {
+                  "$ref": "#/components/schemas/DecimalString"
+                },
+                "indexedBlockHash": {
+                  "$ref": "#/components/schemas/Bytes32"
+                },
+                "chainTip": {
+                  "$ref": "#/components/schemas/DecimalString"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "ApiError": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "code": {
+            "type": "string",
+            "enum": [
+              "WRONG_NETWORK",
+              "UNTRUSTED_DEPLOYMENT",
+              "WALLET_AUTH_REQUIRED",
+              "WALLET_CAPABILITY_UNAVAILABLE",
+              "IDEMPOTENCY_CONFLICT",
+              "ACTIVE_OPERATION_EXISTS",
+              "MINT_PAUSED",
+              "SOLD_OUT",
+              "EPOCH_UNAVAILABLE",
+              "EPOCH_EXPIRED",
+              "CHALLENGE_EXPIRED",
+              "CERTIFICATE_EXPIRED",
+              "INVALID_SIGNATURE",
+              "INVALID_WORK",
+              "NONCE_CONSUMED",
+              "RECEIPT_CONSUMED",
+              "INSUFFICIENT_FUNDS",
+              "INSUFFICIENT_ALLOWANCE",
+              "SUBMISSION_UNKNOWN",
+              "CONTENT_NOT_REGISTERED",
+              "INVALID_CONTENT_PROOF",
+              "NOT_NFT_OWNER",
+              "CONVERSIONS_CLOSED",
+              "VAULT_EMPTY",
+              "HEAD_CHANGED",
+              "DEADLINE_EXPIRED",
+              "DIRECT_VAULT_TRANSFER_FORBIDDEN",
+              "RESOURCE_NOT_FOUND",
+              "INDEXER_STALE",
+              "DEPENDENCY_UNAVAILABLE",
+              "WALLET_UNDEPLOYED",
+              "RPC_RATE_LIMITED",
+              "INDEXER_LAGGING",
+              "LOCAL_LEDGER_BUSY",
+              "WORKER_PLATFORM_UNSUPPORTED",
+              "WORKER_DOWNLOAD_FAILED"
+            ]
+          },
+          "message": {
+            "type": "string",
+            "minLength": 1
+          },
+          "retryable": {
+            "type": "boolean"
+          },
+          "retryAfterMs": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0
+          },
+          "action": {
+            "type": "string",
+            "enum": [
+              "RETRY_SAME_OPERATION",
+              "REAUTHORIZE",
+              "WAIT_NEXT_EPOCH",
+              "RECOVER_TRANSACTION",
+              "FUND_WALLET",
+              "CONTACT_SUPPORT",
+              "NONE"
+            ]
+          },
+          "operationId": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uuid"
+          },
+          "details": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "additionalProperties": true
+          }
+        },
+        "required": [
+          "code",
+          "message",
+          "retryable",
+          "retryAfterMs",
+          "action",
+          "operationId",
+          "details"
+        ]
+      },
+      "ErrorEnvelope": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "ok": {
+            "const": false
+          },
+          "schemaVersion": {
+            "const": "1"
+          },
+          "requestId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "data": {
+            "type": "null"
+          },
+          "error": {
+            "$ref": "#/components/schemas/ApiError"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/ApiMeta"
+          }
+        },
+        "required": [
+          "ok",
+          "schemaVersion",
+          "requestId",
+          "data",
+          "error",
+          "meta"
+        ]
+      },
+      "Challenge": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "protocolVersion": {
+            "const": 1
+          },
+          "configDigest": {
+            "$ref": "#/components/schemas/Bytes32"
+          },
+          "challengeId": {
+            "$ref": "#/components/schemas/Bytes32"
+          },
+          "epochId": {
+            "$ref": "#/components/schemas/Uint64String"
+          },
+          "minter": {
+            "$ref": "#/components/schemas/Address"
+          },
+          "mintNonce": {
+            "$ref": "#/components/schemas/DecimalString"
+          },
+          "challengeInput": {
+            "$ref": "#/components/schemas/Bytes32"
+          },
+          "mintFee": {
+            "$ref": "#/components/schemas/DecimalString"
+          },
+          "validAfter": {
+            "$ref": "#/components/schemas/Uint64String"
+          },
+          "expiresAt": {
+            "$ref": "#/components/schemas/Uint64String"
+          },
+          "signerVersion": {
+            "$ref": "#/components/schemas/Uint64String"
+          }
+        },
+        "required": [
+          "protocolVersion",
+          "configDigest",
+          "challengeId",
+          "epochId",
+          "minter",
+          "mintNonce",
+          "challengeInput",
+          "mintFee",
+          "validAfter",
+          "expiresAt",
+          "signerVersion"
+        ]
+      },
+      "WorkCertificate": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "protocolVersion": {
+            "const": 1
+          },
+          "challengeHash": {
+            "$ref": "#/components/schemas/Bytes32"
+          },
+          "workNonce": {
+            "$ref": "#/components/schemas/Uint64String"
+          },
+          "randomxHash": {
+            "$ref": "#/components/schemas/Bytes32"
+          },
+          "issuedAt": {
+            "$ref": "#/components/schemas/Uint64String"
+          },
+          "expiresAt": {
+            "$ref": "#/components/schemas/Uint64String"
+          },
+          "signerVersion": {
+            "$ref": "#/components/schemas/Uint64String"
+          }
+        },
+        "required": [
+          "protocolVersion",
+          "challengeHash",
+          "workNonce",
+          "randomxHash",
+          "issuedAt",
+          "expiresAt",
+          "signerVersion"
+        ]
+      },
+      "WorkConfig": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "protocolVersion": {
+            "const": 1
+          },
+          "algorithmId": {
+            "$ref": "#/components/schemas/Bytes32"
+          },
+          "parameterDigest": {
+            "$ref": "#/components/schemas/Bytes32"
+          },
+          "epochSeconds": {
+            "$ref": "#/components/schemas/Uint64String"
+          },
+          "keyLeadSeconds": {
+            "$ref": "#/components/schemas/Uint64String"
+          },
+          "maxChallengeTtl": {
+            "$ref": "#/components/schemas/Uint64String"
+          },
+          "maxCertificateTtl": {
+            "$ref": "#/components/schemas/Uint64String"
+          },
+          "target": {
+            "$ref": "#/components/schemas/DecimalString"
+          },
+          "effectiveEpoch": {
+            "$ref": "#/components/schemas/Uint64String"
+          },
+          "configDigest": {
+            "$ref": "#/components/schemas/Bytes32"
+          }
+        },
+        "required": [
+          "protocolVersion",
+          "algorithmId",
+          "parameterDigest",
+          "epochSeconds",
+          "keyLeadSeconds",
+          "maxChallengeTtl",
+          "maxCertificateTtl",
+          "target",
+          "effectiveEpoch",
+          "configDigest"
+        ]
+      },
+      "Epoch": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "epochId": {
+            "$ref": "#/components/schemas/Uint64String"
+          },
+          "configDigest": {
+            "$ref": "#/components/schemas/Bytes32"
+          },
+          "epochKey": {
+            "$ref": "#/components/schemas/Bytes32"
+          },
+          "validFrom": {
+            "$ref": "#/components/schemas/Uint64String"
+          },
+          "validUntil": {
+            "$ref": "#/components/schemas/Uint64String"
+          },
+          "anchorBlockNumber": {
+            "$ref": "#/components/schemas/Uint64String"
+          },
+          "anchorBlockHash": {
+            "$ref": "#/components/schemas/Bytes32"
+          }
+        },
+        "required": [
+          "epochId",
+          "configDigest",
+          "epochKey",
+          "validFrom",
+          "validUntil",
+          "anchorBlockNumber",
+          "anchorBlockHash"
+        ]
+      },
+      "DeploymentAddresses": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "core": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Address"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "base": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Address"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "mirror": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Address"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "vault": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Address"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "controller": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Address"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "treasury": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Address"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "core",
+          "base",
+          "mirror",
+          "vault",
+          "controller",
+          "treasury"
+        ]
+      },
+      "WalletHandle": {
+        "oneOf": [
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "kind": {
+                "const": "transaction"
+              },
+              "chainId": {
+                "$ref": "#/components/schemas/DecimalString"
+              },
+              "hash": {
+                "$ref": "#/components/schemas/Bytes32"
+              },
+              "sender": {
+                "$ref": "#/components/schemas/Address"
+              },
+              "transactionNonce": {
+                "$ref": "#/components/schemas/DecimalString"
+              }
+            },
+            "required": [
+              "kind",
+              "chainId",
+              "hash",
+              "sender"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "kind": {
+                "const": "provider-operation"
+              },
+              "provider": {
+                "type": "string",
+                "minLength": 1
+              },
+              "requestId": {
+                "type": "string",
+                "minLength": 1
+              },
+              "operationId": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "chainId": {
+                "$ref": "#/components/schemas/DecimalString"
+              }
+            },
+            "required": [
+              "kind",
+              "provider",
+              "requestId",
+              "operationId",
+              "chainId"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "kind": {
+                "const": "user-operation"
+              },
+              "entryPoint": {
+                "$ref": "#/components/schemas/Address"
+              },
+              "userOpHash": {
+                "$ref": "#/components/schemas/Bytes32"
+              },
+              "sender": {
+                "$ref": "#/components/schemas/Address"
+              },
+              "accountNonce": {
+                "$ref": "#/components/schemas/DecimalString"
+              },
+              "chainId": {
+                "$ref": "#/components/schemas/DecimalString"
+              }
+            },
+            "required": [
+              "kind",
+              "entryPoint",
+              "userOpHash",
+              "sender",
+              "accountNonce",
+              "chainId"
+            ]
+          }
+        ]
+      },
+      "EnvironmentId": {
+        "type": "string",
+        "pattern": "^[0-9]+:0x[0-9a-f]{40}$"
+      },
+      "Arcal": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "environmentId": {
+            "$ref": "#/components/schemas/EnvironmentId"
+          },
+          "id": {
+            "$ref": "#/components/schemas/ArcalIdString"
+          },
+          "originalMinter": {
+            "$ref": "#/components/schemas/Address"
+          },
+          "owner": {
+            "$ref": "#/components/schemas/Address"
+          },
+          "contentStatus": {
+            "enum": [
+              "PENDING_CONTENT",
+              "REGISTERED"
+            ]
+          },
+          "formState": {
+            "enum": [
+              "UNBANKED",
+              "BANKED"
+            ]
+          },
+          "startDigit": {
+            "$ref": "#/components/schemas/DecimalString"
+          },
+          "endDigit": {
+            "$ref": "#/components/schemas/DecimalString"
+          },
+          "contentHash": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Bytes32"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "datasetRoot": {
+            "$ref": "#/components/schemas/Bytes32"
+          },
+          "packedDigitsUrl": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uri"
+          },
+          "workReceiptHash": {
+            "$ref": "#/components/schemas/Bytes32"
+          },
+          "workVerification": {
+            "enum": [
+              "verified",
+              "unverified"
+            ]
+          },
+          "queuePosition": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DecimalString"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "lastUpdatedBlock": {
+            "$ref": "#/components/schemas/DecimalString"
+          }
+        },
+        "required": [
+          "environmentId",
+          "id",
+          "originalMinter",
+          "owner",
+          "contentStatus",
+          "formState",
+          "startDigit",
+          "endDigit",
+          "contentHash",
+          "datasetRoot",
+          "packedDigitsUrl",
+          "workReceiptHash",
+          "workVerification",
+          "queuePosition",
+          "lastUpdatedBlock"
+        ]
+      },
+      "WalletActivity": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "environmentId": {
+            "$ref": "#/components/schemas/EnvironmentId"
+          },
+          "wallet": {
+            "$ref": "#/components/schemas/Address"
+          },
+          "kind": {
+            "enum": [
+              "MINT",
+              "NFT_TRANSFER_IN",
+              "NFT_TRANSFER_OUT",
+              "LIQUIFY",
+              "REFORM"
+            ]
+          },
+          "transactionHash": {
+            "$ref": "#/components/schemas/Bytes32"
+          },
+          "blockNumber": {
+            "$ref": "#/components/schemas/DecimalString"
+          },
+          "logIndex": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "arcalId": {
+            "$ref": "#/components/schemas/ArcalIdString"
+          },
+          "counterparty": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Address"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "nativeDelta": {
+            "type": "string",
+            "pattern": "^-?(?:0|[1-9][0-9]*)$"
+          },
+          "arclDelta": {
+            "type": "string",
+            "pattern": "^-?(?:0|[1-9][0-9]*)$"
+          },
+          "nftDelta": {
+            "enum": [
+              -1,
+              0,
+              1
+            ]
+          }
+        },
+        "required": [
+          "environmentId",
+          "wallet",
+          "kind",
+          "transactionHash",
+          "blockNumber",
+          "logIndex",
+          "arcalId",
+          "counterparty",
+          "nativeDelta",
+          "arclDelta",
+          "nftDelta"
+        ]
+      },
+      "AuthNonceRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "wallet": {
+            "$ref": "#/components/schemas/Address"
+          },
+          "chainId": {
+            "$ref": "#/components/schemas/DecimalString"
+          }
+        },
+        "required": [
+          "wallet",
+          "chainId"
+        ]
+      },
+      "AuthNonceData": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "nonce": {
+            "$ref": "#/components/schemas/Bytes32"
+          },
+          "message": {
+            "type": "string"
+          },
+          "expiresAt": {
+            "$ref": "#/components/schemas/Rfc3339"
+          }
+        },
+        "required": [
+          "nonce",
+          "message",
+          "expiresAt"
+        ]
+      },
+      "AuthSessionRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "message": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096
+          },
+          "signature": {
+            "$ref": "#/components/schemas/WalletAuthSignature"
+          }
+        },
+        "required": [
+          "message",
+          "signature"
+        ]
+      },
+      "AuthSessionData": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "sessionToken": {
+            "type": "string",
+            "minLength": 1
+          },
+          "expiresAt": {
+            "$ref": "#/components/schemas/Rfc3339"
+          }
+        },
+        "required": [
+          "sessionToken",
+          "expiresAt"
+        ]
+      },
+      "ChallengeRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "wallet": {
+            "$ref": "#/components/schemas/Address"
+          },
+          "mintNonce": {
+            "$ref": "#/components/schemas/DecimalString"
+          },
+          "protocolVersion": {
+            "const": 1
+          }
+        },
+        "required": [
+          "wallet",
+          "mintNonce",
+          "protocolVersion"
+        ]
+      },
+      "ChallengeData": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "challenge": {
+            "$ref": "#/components/schemas/Challenge"
+          },
+          "issuerSignature": {
+            "$ref": "#/components/schemas/Signature"
+          },
+          "epoch": {
+            "$ref": "#/components/schemas/Epoch"
+          }
+        },
+        "required": [
+          "challenge",
+          "issuerSignature",
+          "epoch"
+        ]
+      },
+      "WorkVerifyRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "challenge": {
+            "$ref": "#/components/schemas/Challenge"
+          },
+          "issuerSignature": {
+            "$ref": "#/components/schemas/Signature"
+          },
+          "workNonce": {
+            "$ref": "#/components/schemas/Uint64String"
+          },
+          "clientRandomxHash": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Bytes32"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "challenge",
+          "issuerSignature",
+          "workNonce",
+          "clientRandomxHash"
+        ]
+      },
+      "WorkAcceptedData": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "jobId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "status": {
+            "const": "QUEUED"
+          }
+        },
+        "required": [
+          "jobId",
+          "status"
+        ]
+      },
+      "WorkJobData": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "jobId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "status": {
+            "enum": [
+              "QUEUED",
+              "VERIFYING",
+              "CERTIFICATE_READY",
+              "REJECTED",
+              "EXPIRED"
+            ]
+          },
+          "certificate": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/WorkCertificate"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "verifierSignature": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Signature"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ApiError"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "jobId",
+          "status",
+          "certificate",
+          "verifierSignature",
+          "error"
+        ],
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "status": {
+                  "const": "CERTIFICATE_READY"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "certificate": {
+                  "$ref": "#/components/schemas/WorkCertificate"
+                },
+                "verifierSignature": {
+                  "$ref": "#/components/schemas/Signature"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "OperationData": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "operationId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "state": {
+            "enum": [
+              "CREATED",
+              "PREFLIGHT",
+              "NEEDS_USER_AUTH",
+              "CHALLENGE_READY",
+              "DATASET_READY",
+              "COMPUTING",
+              "SOLUTION_FOUND",
+              "VERIFYING",
+              "CERTIFICATE_READY",
+              "WALLET_SUBMITTING",
+              "TX_PENDING",
+              "MINT_CONFIRMED",
+              "SUBMISSION_UNKNOWN",
+              "RECOVERING",
+              "REVERTED",
+              "REPLACED",
+              "UNKNOWN",
+              "CANCELLED",
+              "EXPIRED",
+              "FAILED",
+              "FAILED_RETRYABLE"
+            ]
+          },
+          "walletHandle": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/WalletHandle"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "stopRequested": {
+            "type": "boolean"
+          },
+          "updatedAt": {
+            "$ref": "#/components/schemas/Rfc3339"
+          }
+        },
+        "required": [
+          "operationId",
+          "state",
+          "walletHandle",
+          "stopRequested",
+          "updatedAt"
+        ]
+      },
+      "AssociateTransactionRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "walletHandle": {
+            "$ref": "#/components/schemas/WalletHandle"
+          },
+          "txHash": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Bytes32"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "walletHandle",
+          "txHash"
+        ]
+      },
+      "MintData": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "txHash": {
+            "$ref": "#/components/schemas/Bytes32"
+          },
+          "status": {
+            "enum": [
+              "PENDING",
+              "FINAL",
+              "REVERTED",
+              "RECOVERY_REQUIRED"
+            ]
+          },
+          "issuedId": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ArcalIdString"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "receiptHash": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Bytes32"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "workVerification": {
+            "enum": [
+              "verified",
+              "unverified",
+              "unknown"
+            ]
+          }
+        },
+        "required": [
+          "txHash",
+          "status",
+          "issuedId",
+          "receiptHash",
+          "workVerification"
+        ]
+      },
+      "ArcalListData": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Arcal"
+            },
+            "maxItems": 100
+          },
+          "nextCursor": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "items",
+          "nextCursor"
+        ]
+      },
+      "WalletActivityListData": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/WalletActivity"
+            },
+            "maxItems": 100
+          },
+          "nextCursor": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "items",
+          "nextCursor"
+        ]
+      },
+      "VaultData": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "head": {
+            "$ref": "#/components/schemas/DecimalString"
+          },
+          "tail": {
+            "$ref": "#/components/schemas/DecimalString"
+          },
+          "bankedCount": {
+            "$ref": "#/components/schemas/DecimalString"
+          },
+          "nextId": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ArcalIdString"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "conversionOpen": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "head",
+          "tail",
+          "bankedCount",
+          "nextId",
+          "conversionOpen"
+        ]
+      },
+      "VaultItem": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "position": {
+            "$ref": "#/components/schemas/DecimalString"
+          },
+          "id": {
+            "$ref": "#/components/schemas/ArcalIdString"
+          }
+        },
+        "required": [
+          "position",
+          "id"
+        ]
+      },
+      "VaultItemsData": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/VaultItem"
+            },
+            "maxItems": 100
+          },
+          "nextCursor": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "items",
+          "nextCursor"
+        ]
+      },
+      "PiProofData": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "datasetId": {
+            "$ref": "#/components/schemas/DatasetId"
+          },
+          "id": {
+            "$ref": "#/components/schemas/ArcalIdString"
+          },
+          "packedDigits": {
+            "$ref": "#/components/schemas/PackedPiDigits"
+          },
+          "proof": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Bytes32"
+            },
+            "minItems": 20,
+            "maxItems": 20
+          },
+          "contentHash": {
+            "$ref": "#/components/schemas/Bytes32"
+          },
+          "root": {
+            "$ref": "#/components/schemas/Bytes32"
+          }
+        },
+        "required": [
+          "datasetId",
+          "id",
+          "packedDigits",
+          "proof",
+          "contentHash",
+          "root"
+        ]
+      },
+      "StatsData": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "minted": {
+            "$ref": "#/components/schemas/DecimalString"
+          },
+          "reserveMintedCount": {
+            "$ref": "#/components/schemas/DecimalString"
+          },
+          "mintPaused": {
+            "type": "boolean"
+          },
+          "reserveArcl": {
+            "$ref": "#/components/schemas/DecimalString"
+          },
+          "externalArcl": {
+            "$ref": "#/components/schemas/DecimalString"
+          },
+          "bankedCount": {
+            "$ref": "#/components/schemas/DecimalString"
+          },
+          "mintRevenueNative": {
+            "$ref": "#/components/schemas/DecimalString"
+          }
+        },
+        "required": [
+          "minted",
+          "reserveMintedCount",
+          "mintPaused",
+          "reserveArcl",
+          "externalArcl",
+          "bankedCount",
+          "mintRevenueNative"
+        ]
+      },
+      "HealthData": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "version": {
+            "type": "string"
+          },
+          "dependencies": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "healthy": {
+                  "type": "boolean"
+                },
+                "stale": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "healthy",
+                "stale"
+              ]
+            }
+          }
+        },
+        "required": [
+          "version",
+          "dependencies"
+        ]
+      },
+      "ConfigData": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "environmentId": {
+            "$ref": "#/components/schemas/EnvironmentId"
+          },
+          "chainId": {
+            "$ref": "#/components/schemas/DecimalString"
+          },
+          "deployment": {
+            "$ref": "#/components/schemas/DeploymentAddresses"
+          },
+          "piRoot": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Bytes32"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "workConfig": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/WorkConfig"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "epoch": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Epoch"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "capabilities": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "boolean"
+            }
+          }
+        },
+        "required": [
+          "environmentId",
+          "chainId",
+          "deployment",
+          "piRoot",
+          "workConfig",
+          "epoch",
+          "capabilities"
+        ]
+      },
+      "AuthNonceEnvelope": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "ok": {
+            "const": true
+          },
+          "schemaVersion": {
+            "const": "1"
+          },
+          "requestId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "data": {
+            "$ref": "#/components/schemas/AuthNonceData"
+          },
+          "error": {
+            "type": "null"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/ApiMeta"
+          }
+        },
+        "required": [
+          "ok",
+          "schemaVersion",
+          "requestId",
+          "data",
+          "error",
+          "meta"
+        ]
+      },
+      "AuthSessionEnvelope": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "ok": {
+            "const": true
+          },
+          "schemaVersion": {
+            "const": "1"
+          },
+          "requestId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "data": {
+            "$ref": "#/components/schemas/AuthSessionData"
+          },
+          "error": {
+            "type": "null"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/ApiMeta"
+          }
+        },
+        "required": [
+          "ok",
+          "schemaVersion",
+          "requestId",
+          "data",
+          "error",
+          "meta"
+        ]
+      },
+      "ConfigEnvelope": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "ok": {
+            "const": true
+          },
+          "schemaVersion": {
+            "const": "1"
+          },
+          "requestId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "data": {
+            "$ref": "#/components/schemas/ConfigData"
+          },
+          "error": {
+            "type": "null"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/ApiMeta"
+          }
+        },
+        "required": [
+          "ok",
+          "schemaVersion",
+          "requestId",
+          "data",
+          "error",
+          "meta"
+        ]
+      },
+      "ChallengeEnvelope": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "ok": {
+            "const": true
+          },
+          "schemaVersion": {
+            "const": "1"
+          },
+          "requestId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "data": {
+            "$ref": "#/components/schemas/ChallengeData"
+          },
+          "error": {
+            "type": "null"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/ApiMeta"
+          }
+        },
+        "required": [
+          "ok",
+          "schemaVersion",
+          "requestId",
+          "data",
+          "error",
+          "meta"
+        ]
+      },
+      "WorkAcceptedEnvelope": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "ok": {
+            "const": true
+          },
+          "schemaVersion": {
+            "const": "1"
+          },
+          "requestId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "data": {
+            "$ref": "#/components/schemas/WorkAcceptedData"
+          },
+          "error": {
+            "type": "null"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/ApiMeta"
+          }
+        },
+        "required": [
+          "ok",
+          "schemaVersion",
+          "requestId",
+          "data",
+          "error",
+          "meta"
+        ]
+      },
+      "WorkJobEnvelope": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "ok": {
+            "const": true
+          },
+          "schemaVersion": {
+            "const": "1"
+          },
+          "requestId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "data": {
+            "$ref": "#/components/schemas/WorkJobData"
+          },
+          "error": {
+            "type": "null"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/ApiMeta"
+          }
+        },
+        "required": [
+          "ok",
+          "schemaVersion",
+          "requestId",
+          "data",
+          "error",
+          "meta"
+        ]
+      },
+      "OperationEnvelope": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "ok": {
+            "const": true
+          },
+          "schemaVersion": {
+            "const": "1"
+          },
+          "requestId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "data": {
+            "$ref": "#/components/schemas/OperationData"
+          },
+          "error": {
+            "type": "null"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/ApiMeta"
+          }
+        },
+        "required": [
+          "ok",
+          "schemaVersion",
+          "requestId",
+          "data",
+          "error",
+          "meta"
+        ]
+      },
+      "MintEnvelope": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "ok": {
+            "const": true
+          },
+          "schemaVersion": {
+            "const": "1"
+          },
+          "requestId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "data": {
+            "$ref": "#/components/schemas/MintData"
+          },
+          "error": {
+            "type": "null"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/ApiMeta"
+          }
+        },
+        "required": [
+          "ok",
+          "schemaVersion",
+          "requestId",
+          "data",
+          "error",
+          "meta"
+        ]
+      },
+      "ArcalEnvelope": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "ok": {
+            "const": true
+          },
+          "schemaVersion": {
+            "const": "1"
+          },
+          "requestId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "data": {
+            "$ref": "#/components/schemas/Arcal"
+          },
+          "error": {
+            "type": "null"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/ApiMeta"
+          }
+        },
+        "required": [
+          "ok",
+          "schemaVersion",
+          "requestId",
+          "data",
+          "error",
+          "meta"
+        ]
+      },
+      "ArcalListEnvelope": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "ok": {
+            "const": true
+          },
+          "schemaVersion": {
+            "const": "1"
+          },
+          "requestId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "data": {
+            "$ref": "#/components/schemas/ArcalListData"
+          },
+          "error": {
+            "type": "null"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/ApiMeta"
+          }
+        },
+        "required": [
+          "ok",
+          "schemaVersion",
+          "requestId",
+          "data",
+          "error",
+          "meta"
+        ]
+      },
+      "WalletActivityListEnvelope": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "ok": {
+            "const": true
+          },
+          "schemaVersion": {
+            "const": "1"
+          },
+          "requestId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "data": {
+            "$ref": "#/components/schemas/WalletActivityListData"
+          },
+          "error": {
+            "type": "null"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/ApiMeta"
+          }
+        },
+        "required": [
+          "ok",
+          "schemaVersion",
+          "requestId",
+          "data",
+          "error",
+          "meta"
+        ]
+      },
+      "VaultEnvelope": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "ok": {
+            "const": true
+          },
+          "schemaVersion": {
+            "const": "1"
+          },
+          "requestId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "data": {
+            "$ref": "#/components/schemas/VaultData"
+          },
+          "error": {
+            "type": "null"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/ApiMeta"
+          }
+        },
+        "required": [
+          "ok",
+          "schemaVersion",
+          "requestId",
+          "data",
+          "error",
+          "meta"
+        ]
+      },
+      "VaultItemsEnvelope": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "ok": {
+            "const": true
+          },
+          "schemaVersion": {
+            "const": "1"
+          },
+          "requestId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "data": {
+            "$ref": "#/components/schemas/VaultItemsData"
+          },
+          "error": {
+            "type": "null"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/ApiMeta"
+          }
+        },
+        "required": [
+          "ok",
+          "schemaVersion",
+          "requestId",
+          "data",
+          "error",
+          "meta"
+        ]
+      },
+      "PiProofEnvelope": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "ok": {
+            "const": true
+          },
+          "schemaVersion": {
+            "const": "1"
+          },
+          "requestId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "data": {
+            "$ref": "#/components/schemas/PiProofData"
+          },
+          "error": {
+            "type": "null"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/ApiMeta"
+          }
+        },
+        "required": [
+          "ok",
+          "schemaVersion",
+          "requestId",
+          "data",
+          "error",
+          "meta"
+        ]
+      },
+      "StatsEnvelope": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "ok": {
+            "const": true
+          },
+          "schemaVersion": {
+            "const": "1"
+          },
+          "requestId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "data": {
+            "$ref": "#/components/schemas/StatsData"
+          },
+          "error": {
+            "type": "null"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/ApiMeta"
+          }
+        },
+        "required": [
+          "ok",
+          "schemaVersion",
+          "requestId",
+          "data",
+          "error",
+          "meta"
+        ]
+      },
+      "HealthEnvelope": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "ok": {
+            "const": true
+          },
+          "schemaVersion": {
+            "const": "1"
+          },
+          "requestId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "data": {
+            "$ref": "#/components/schemas/HealthData"
+          },
+          "error": {
+            "type": "null"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/ApiMeta"
+          }
+        },
+        "required": [
+          "ok",
+          "schemaVersion",
+          "requestId",
+          "data",
+          "error",
+          "meta"
+        ]
+      },
+      "CliEnvelope": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "schemaVersion": {
+            "const": "1"
+          },
+          "command": {
+            "enum": [
+              "preflight",
+              "wallet.setup",
+              "mine.once",
+              "authorize",
+              "run",
+              "status",
+              "stop",
+              "verify-receipt",
+              "content.register",
+              "form.liquify",
+              "form.reform"
+            ]
+          },
+          "state": {
+            "type": "string",
+            "minLength": 1
+          },
+          "operationId": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uuid"
+          },
+          "chainId": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DecimalString"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "wallet": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Address"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "txHash": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Bytes32"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "data": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ApiError"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "asOf": {
+            "$ref": "#/components/schemas/Rfc3339"
+          }
+        },
+        "required": [
+          "ok",
+          "schemaVersion",
+          "command",
+          "state",
+          "operationId",
+          "chainId",
+          "wallet",
+          "txHash",
+          "data",
+          "error",
+          "asOf"
+        ],
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "ok": {
+                  "const": true
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "error": {
+                  "type": "null"
+                }
+              }
+            },
+            "else": {
+              "properties": {
+                "error": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "x-arcals-environment-bound": true
+}

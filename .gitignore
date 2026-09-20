@@ -1,0 +1,25 @@
+node_modules/
+dist/
+build/
+coverage/
+*.log
+*.tsbuildinfo
+.env
+.env.*
+!.env.example
+*.keystore
+*.sqlite
+*.sqlite-*
+.DS_Store
+.idea/
+.vscode/
+
+# Local EVM batch secrets and persistent runtime state
+private/
+secrets/
+state/
+batch.config.json
+multi-eoa.config.json
+multi-eoa-*-test.json
+multi-eoa-*-live.json
+*.key

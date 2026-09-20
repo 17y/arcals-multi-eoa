@@ -1,0 +1,27 @@
+{
+  "storyId": "cli.stop.preserves-pending",
+  "mode": "local-fixture",
+  "schema": "CliEnvelope",
+  "signaturesIncluded": false,
+  "note": "Stop blocks new submissions and does not claim to cancel an already broadcast transaction.",
+  "value": {
+    "ok": true,
+    "schemaVersion": "1",
+    "command": "stop",
+    "state": "STOPPED",
+    "operationId": null,
+    "chainId": "31337",
+    "wallet": "0x2000000000000000000000000000000000000002",
+    "txHash": null,
+    "data": {
+      "newSubmissionsStopped": true,
+      "pendingStillTracked": [
+        "10000000-0000-4000-8000-000000000001",
+        "10000000-0000-4000-8000-000000000002"
+      ],
+      "pendingTransactionsCancelled": false
+    },
+    "error": null,
+    "asOf": "2026-09-12T00:00:00Z"
+  }
+}

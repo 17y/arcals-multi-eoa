@@ -1,0 +1,109 @@
+diff --git a/src/instructions_portable.cpp b/src/instructions_portable.cpp
+index d746727..32b1a1a 100644
+--- a/src/instructions_portable.cpp
++++ b/src/instructions_portable.cpp
+@@ -131,7 +131,26 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ 	#define HAVE_SMULH
+ #endif
+ 
+-#ifdef RANDOMX_DEFAULT_FENV
++#if defined(RANDOMX_DEFAULT_FENV) && defined(__EMSCRIPTEN__)
++
++// WebAssembly has no rounding-mode control, so the mode lives here and the
++// floating-point operations in intrin_portable.h round in software.
++extern "C" int rx_wasm_round_mode;
++int rx_wasm_round_mode = RoundToNearest;
++
++void rx_reset_float_state() {
++	rx_wasm_round_mode = RoundToNearest;
++}
++
++void rx_set_rounding_mode(uint32_t mode) {
++	rx_wasm_round_mode = (int)(mode & 3);
++}
++
++uint32_t rx_get_rounding_mode() {
++	return (uint32_t)rx_wasm_round_mode;
++}
++
++#elif defined(RANDOMX_DEFAULT_FENV)
+ 
+ void rx_reset_float_state() {
+ 	setRoundMode_(FE_TONEAREST);
+diff --git a/src/intrin_portable.h b/src/intrin_portable.h
+index 1053065..d9516ef 100644
+--- a/src/intrin_portable.h
++++ b/src/intrin_portable.h
+@@ -538,6 +538,10 @@ FORCE_INLINE rx_vec_f128 rx_cvt_packed_int_vec_f128(const void* addr) {
+ #else //portable fallback
+ 
+ #include <cstdint>
++#if defined(__EMSCRIPTEN__)
++// WebAssembly ignores the rounding mode; see wasm_rounding.h.
++#include "wasm_rounding.h"
++#endif
+ #include <stdexcept>
+ #include <cstdlib>
+ #include <cmath>
+@@ -599,36 +603,61 @@ FORCE_INLINE rx_vec_f128 rx_swap_vec_f128(rx_vec_f128 a) {
+ 
+ FORCE_INLINE rx_vec_f128 rx_add_vec_f128(rx_vec_f128 a, rx_vec_f128 b) {
+ 	rx_vec_f128 x;
++#if defined(__EMSCRIPTEN__)
++	x.lo = rxw::add(a.lo, b.lo);
++	x.hi = rxw::add(a.hi, b.hi);
++#else
+ 	x.lo = a.lo + b.lo;
+ 	x.hi = a.hi + b.hi;
++#endif
+ 	return x;
+ }
+ 
+ FORCE_INLINE rx_vec_f128 rx_sub_vec_f128(rx_vec_f128 a, rx_vec_f128 b) {
+ 	rx_vec_f128 x;
++#if defined(__EMSCRIPTEN__)
++	x.lo = rxw::sub(a.lo, b.lo);
++	x.hi = rxw::sub(a.hi, b.hi);
++#else
+ 	x.lo = a.lo - b.lo;
+ 	x.hi = a.hi - b.hi;
++#endif
+ 	return x;
+ }
+ 
+ FORCE_INLINE rx_vec_f128 rx_mul_vec_f128(rx_vec_f128 a, rx_vec_f128 b) {
+ 	rx_vec_f128 x;
++#if defined(__EMSCRIPTEN__)
++	x.lo = rxw::mul(a.lo, b.lo);
++	x.hi = rxw::mul(a.hi, b.hi);
++#else
+ 	x.lo = a.lo * b.lo;
+ 	x.hi = a.hi * b.hi;
++#endif
+ 	return x;
+ }
+ 
+ FORCE_INLINE rx_vec_f128 rx_div_vec_f128(rx_vec_f128 a, rx_vec_f128 b) {
+ 	rx_vec_f128 x;
++#if defined(__EMSCRIPTEN__)
++	x.lo = rxw::div(a.lo, b.lo);
++	x.hi = rxw::div(a.hi, b.hi);
++#else
+ 	x.lo = a.lo / b.lo;
+ 	x.hi = a.hi / b.hi;
++#endif
+ 	return x;
+ }
+ 
+ FORCE_INLINE rx_vec_f128 rx_sqrt_vec_f128(rx_vec_f128 a) {
+ 	rx_vec_f128 x;
++#if defined(__EMSCRIPTEN__)
++	x.lo = rxw::sqrt(a.lo, rx_sqrt(a.lo));
++	x.hi = rxw::sqrt(a.hi, rx_sqrt(a.hi));
++#else
+ 	x.lo = rx_sqrt(a.lo);
+ 	x.hi = rx_sqrt(a.hi);
++#endif
+ 	return x;
+ }
+ 

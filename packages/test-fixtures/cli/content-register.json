@@ -1,0 +1,22 @@
+{
+  "storyId": "cli.content.registered",
+  "mode": "local-fixture",
+  "schema": "CliEnvelope",
+  "signaturesIncluded": false,
+  "note": "Content registration is a separate operation and never retries the successful Mint.",
+  "value": {
+    "ok": true,
+    "schemaVersion": "1",
+    "command": "content.register",
+    "state": "CONTENT_REGISTERED",
+    "operationId": "10000000-0000-4000-8000-000000000001",
+    "chainId": "31337",
+    "wallet": "0x2000000000000000000000000000000000000002",
+    "txHash": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "data": {
+      "id": "1"
+    },
+    "error": null,
+    "asOf": "2026-09-12T00:00:00Z"
+  }
+}

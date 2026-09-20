@@ -1,0 +1,38 @@
+{
+  "storyId": "cli.mine.needs-exact-authorization",
+  "mode": "local-fixture",
+  "schema": "CliEnvelope",
+  "signaturesIncluded": false,
+  "note": "A natural-language Mint request first produces an exact non-spending preview; one confirmation covers one Mint and no later asset action.",
+  "value": {
+    "ok": true,
+    "schemaVersion": "1",
+    "command": "mine.once",
+    "state": "NEEDS_USER_AUTH",
+    "operationId": null,
+    "chainId": "31337",
+    "wallet": "0x2000000000000000000000000000000000000002",
+    "txHash": null,
+    "data": {
+      "environmentId": "31337:0x1000000000000000000000000000000000000001",
+      "environmentMode": "local-fixture",
+      "mintFeeNative": "100000000000000000",
+      "payer": "0x2000000000000000000000000000000000000002",
+      "recipient": "0x2000000000000000000000000000000000000002",
+      "controller": "0x1000000000000000000000000000000000000005",
+      "gasPayment": "WALLET_DEPENDENT",
+      "authorizationScope": "ONE_MINT",
+      "assetRouting": {
+        "arcalRecipient": "0x2000000000000000000000000000000000000002",
+        "arclReserveRecipient": "0x1000000000000000000000000000000000000004",
+        "arclReserveAmount": "360000000000000000000",
+        "mintRevenueRecipient": "0x1000000000000000000000000000000000000006",
+        "mintRevenueAmountNative": "100000000000000000",
+        "automaticNftTransfer": false
+      },
+      "warning": "Confirmation authorizes one Mint only; Gas is additional."
+    },
+    "error": null,
+    "asOf": "2026-09-12T00:00:00Z"
+  }
+}

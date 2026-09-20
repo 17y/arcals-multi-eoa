@@ -1,0 +1,13 @@
+{
+  "name": "@arcals/test-fixtures",
+  "version": "0.9.0",
+  "private": true,
+  "files": [
+    "api",
+    "golden",
+    "manifests",
+    "pi",
+    "randomx",
+    "README.md"
+  ]
+}

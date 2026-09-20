@@ -1,0 +1,17 @@
+{
+  "schemaVersion": "1",
+  "mode": "local-fixture",
+  "contract": "controller",
+  "eventName": "EpochPublisherConfigured",
+  "blockNumber": "100",
+  "transactionHash": "0x000000000000000000000000000000000000000000000000000000000000000c",
+  "logIndex": 11,
+  "topics": [
+    "0x69fa3dcb4bbda365b3cb1197dffa79b92f519f44eff257b5c8a921837f0a5565",
+    "0x0000000000000000000000003000000000000000000000000000000000000003"
+  ],
+  "data": "0x",
+  "args": {
+    "epochPublisher": "0x3000000000000000000000000000000000000003"
+  }
+}

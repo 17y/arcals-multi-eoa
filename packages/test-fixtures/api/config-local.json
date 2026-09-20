@@ -1,0 +1,60 @@
+{
+  "storyId": "config.local.ready",
+  "mode": "local-fixture",
+  "schema": "ConfigEnvelope",
+  "signaturesIncluded": false,
+  "note": "Offline local configuration; addresses and roots are test fixtures, never production values.",
+  "value": {
+    "ok": true,
+    "schemaVersion": "1",
+    "requestId": "00000000-0000-4000-8000-000000000001",
+    "data": {
+      "environmentId": "31337:0x1000000000000000000000000000000000000001",
+      "chainId": "31337",
+      "deployment": {
+        "core": "0x1000000000000000000000000000000000000001",
+        "base": "0x1000000000000000000000000000000000000002",
+        "mirror": "0x1000000000000000000000000000000000000003",
+        "vault": "0x1000000000000000000000000000000000000004",
+        "controller": "0x1000000000000000000000000000000000000005",
+        "treasury": "0x1000000000000000000000000000000000000006"
+      },
+      "piRoot": "0x93581ce2887691598e3b7db5ef51a954a75d407f6a022bbe26666578de8ded30",
+      "workConfig": {
+        "protocolVersion": 1,
+        "algorithmId": "0x8ca1fa54766ca6df7bcbbb2a8da08bee94dd5ed9f0055f5e90331a9028af77a9",
+        "parameterDigest": "0x6d2abbb1acd7611ab644031896c4ff7140c78e283142029595f678410984ac11",
+        "epochSeconds": "86400",
+        "keyLeadSeconds": "900",
+        "maxChallengeTtl": "1200",
+        "maxCertificateTtl": "300",
+        "target": "1766847064778384329583297500742918515827483896875618958121606201292619775",
+        "effectiveEpoch": "42",
+        "configDigest": "0xd530431dfd5c46e124eb94966bcfeccdbbf2ae9df1b239ccaaa8e567d9b33435"
+      },
+      "epoch": {
+        "epochId": "42",
+        "configDigest": "0xd530431dfd5c46e124eb94966bcfeccdbbf2ae9df1b239ccaaa8e567d9b33435",
+        "epochKey": "0x91e629e8a7deffb557e069d1c579ea8936c1ef135a0e4f842ce90f6a23f915c3",
+        "validFrom": "1700000000",
+        "validUntil": "1700086400",
+        "anchorBlockNumber": "123456",
+        "anchorBlockHash": "0x2222222222222222222222222222222222222222222222222222222222222222"
+      },
+      "capabilities": {
+        "mint": true,
+        "conversions": false,
+        "unattendedWallet": false
+      }
+    },
+    "error": null,
+    "meta": {
+      "environmentId": "31337:0x1000000000000000000000000000000000000001",
+      "asOf": "2026-09-11T00:00:00Z",
+      "indexedBlock": "100",
+      "indexedBlockHash": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "chainTip": "100",
+      "stale": false
+    }
+  }
+}

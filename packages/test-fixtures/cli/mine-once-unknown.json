@@ -1,0 +1,22 @@
+{
+  "storyId": "cli.mine.submission-unknown",
+  "mode": "local-fixture",
+  "schema": "CliEnvelope",
+  "signaturesIncluded": false,
+  "note": "A lost wallet response remains tied to its original operation; no second Mint is submitted.",
+  "value": {
+    "ok": true,
+    "schemaVersion": "1",
+    "command": "mine.once",
+    "state": "SUBMISSION_UNKNOWN",
+    "operationId": "10000000-0000-4000-8000-000000000001",
+    "chainId": "31337",
+    "wallet": "0x2000000000000000000000000000000000000002",
+    "txHash": null,
+    "data": {
+      "noSecondMintSubmitted": true
+    },
+    "error": null,
+    "asOf": "2026-09-12T00:00:00Z"
+  }
+}

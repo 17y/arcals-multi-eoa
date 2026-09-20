@@ -1,0 +1,44 @@
+{
+  "schemaVersion": "1",
+  "mode": "arc-mainnet",
+  "environmentId": "5042:0x8e22e1afec4888356232ea184f465428b6d70219",
+  "chainId": "5042",
+  "apiUrl": "https://api.arcals.fun",
+  "rpcUrl": "https://rpc.mainnet.arc.io",
+  "rpcFallbackUrls": ["https://arc-rpc.publicnode.com", "https://arc.drpc.org"],
+  "deployment": {
+    "core": "0x8e22e1afec4888356232ea184f465428b6d70219",
+    "base": "0x364cafbf6b8ae3da1ec0fa5ecd9517facaafd78e",
+    "mirror": "0x2ef3b179aa02400b067931a2377ed3d2ed2db46e",
+    "vault": "0xa2a22623c3bc8a60d961a3b2cf82a29caaf276b3",
+    "controller": "0xd1c5fa38a0a433745e9d4d2633e1082f0ee41bbc",
+    "treasury": "0xb97966a81a89824eb878e6ee6ed0feba2df2bd1e"
+  },
+  "piRoot": "0x393ca737edd0f6d89b7ad5f9db2ad28fd74c4c3afd9d71b4f5a2509e6a205e7f",
+  "contentRegistrar": "0x389dc0f6088f12a6a2303e2daf39553a872e86ff",
+  "worker": {
+    "binaryPath": "native/randomx-worker/build/arcals-randomx-worker",
+    "binarySha256": "3ad2e3085f16c99c81c6e79722f7ac3bafbb51dcce7d8b76723b222f4d396445",
+    "algorithmId": "0x8ca1fa54766ca6df7bcbbb2a8da08bee94dd5ed9f0055f5e90331a9028af77a9",
+    "parameterDigest": "0x207c0c80715507e7133d2b79d6067d774c24a06c3f2cf46a63f1dfdf74fab8f1",
+    "platforms": {
+      "linux-x64": {
+        "binarySha256": "3ad2e3085f16c99c81c6e79722f7ac3bafbb51dcce7d8b76723b222f4d396445",
+        "binaryUrl": "https://github.com/ArcalsCircle/arcals-agent/releases/download/worker-v1/arcals-randomx-worker-linux-x64"
+      },
+      "linux-arm64": {
+        "binarySha256": "c5883e1e777785ac65b25e3e237987f97a702d2fb8736c0341d41a14148c327e",
+        "binaryUrl": "https://github.com/ArcalsCircle/arcals-agent/releases/download/worker-v1/arcals-randomx-worker-linux-arm64"
+      },
+      "darwin-arm64": {
+        "binarySha256": "4df40ad9ad94865d9228ad44385a51dc9775ae388431930bc2a8cb8dd3602359",
+        "binaryUrl": "https://github.com/ArcalsCircle/arcals-agent/releases/download/worker-v1/arcals-randomx-worker-darwin-arm64"
+      },
+      "win32-x64": {
+        "binarySha256": "fecd4a25a788b6cca6d798650d31cf4477bd4e6e9735011c7fd2af62897a5330",
+        "binaryUrl": "https://github.com/ArcalsCircle/arcals-agent/releases/download/worker-v6/arcals-randomx-worker-win32-x64.exe"
+      }
+    }
+  },
+  "productionAuthorized": true
+}

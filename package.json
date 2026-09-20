@@ -1,0 +1,33 @@
+{
+  "name": "arcals-multi-eoa",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "packageManager": "pnpm@10.33.0",
+  "engines": {
+    "node": ">=22.22.0",
+    "pnpm": ">=10.33.0"
+  },
+  "scripts": {
+    "build": "pnpm -r --if-present build",
+    "typecheck": "pnpm build && pnpm -r --if-present typecheck",
+    "test": "pnpm build && pnpm run test:eoa && pnpm -r --if-present test",
+    "test:eoa": "node --test apps/cli/multi-eoa.test.mjs apps/cli/evm-batch.test.mjs",
+    "format:check": "prettier --check \"**/*.{json,yaml,yml,ts,mjs,md}\"",
+    "randomx:build": "bash native/randomx-worker/scripts/build.sh",
+    "randomx:check": "pnpm --filter @arcals/protocol build && bash native/randomx-worker/scripts/test-upstream.sh && bash native/randomx-worker/scripts/build.sh && tsx tools/benchmark/src/integration.ts",
+    "randomx:benchmark": "pnpm --filter @arcals/protocol build && bash native/randomx-worker/scripts/build.sh && tsx tools/benchmark/src/benchmark.ts"
+  },
+  "devDependencies": {
+    "@types/node": "22.20.2",
+    "prettier": "3.9.6",
+    "tsx": "4.23.13",
+    "typescript": "5.9.3",
+    "vitest": "4.0.18"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
+  }
+}

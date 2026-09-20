@@ -1,0 +1,38 @@
+{
+  "storyId": "arcal.fifo-reformed-to-different-owner",
+  "mode": "local-fixture",
+  "schema": "ArcalEnvelope",
+  "signaturesIncluded": false,
+  "note": "FIFO reform can give the head Arcal to a different user; original minter is historical, not an exclusive redemption right.",
+  "value": {
+    "ok": true,
+    "schemaVersion": "1",
+    "requestId": "00000000-0000-4000-8000-000000000011",
+    "data": {
+      "environmentId": "31337:0x1000000000000000000000000000000000000001",
+      "id": "1",
+      "originalMinter": "0x2000000000000000000000000000000000000001",
+      "owner": "0x2000000000000000000000000000000000000002",
+      "contentStatus": "REGISTERED",
+      "formState": "UNBANKED",
+      "startDigit": "1",
+      "endDigit": "360",
+      "contentHash": "0xbeaa2dbcaf39539dbef45e16f745dae6fb8af8557e111fb8406e570b4c995666",
+      "datasetRoot": "0x22789b3df96bc06abd963cb7588c0beea3a5da202bb10130f7fea0a1e4c3e655",
+      "packedDigitsUrl": null,
+      "workReceiptHash": "0xdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "workVerification": "verified",
+      "queuePosition": null,
+      "lastUpdatedBlock": "130"
+    },
+    "error": null,
+    "meta": {
+      "environmentId": "31337:0x1000000000000000000000000000000000000001",
+      "asOf": "2026-09-11T00:00:00Z",
+      "indexedBlock": "100",
+      "indexedBlockHash": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "chainTip": "100",
+      "stale": false
+    }
+  }
+}

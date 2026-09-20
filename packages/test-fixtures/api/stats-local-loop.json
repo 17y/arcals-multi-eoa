@@ -1,0 +1,30 @@
+{
+  "storyId": "stats.local-loop-final",
+  "mode": "local-fixture",
+  "schema": "StatsEnvelope",
+  "signaturesIncluded": false,
+  "note": "Final local-loop story after all three Arcals reform: full ARCL reserve restored while cumulative Mint revenue remains separate.",
+  "value": {
+    "ok": true,
+    "schemaVersion": "1",
+    "requestId": "00000000-0000-4000-8000-000000000012",
+    "data": {
+      "reserveMintedCount": "0",
+      "mintPaused": false,
+      "minted": "3",
+      "reserveArcl": "1080000000000000000000",
+      "externalArcl": "0",
+      "bankedCount": "0",
+      "mintRevenueNative": "300000000000000000"
+    },
+    "error": null,
+    "meta": {
+      "environmentId": "31337:0x1000000000000000000000000000000000000001",
+      "asOf": "2026-09-11T00:00:00Z",
+      "indexedBlock": "100",
+      "indexedBlockHash": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "chainTip": "100",
+      "stale": false
+    }
+  }
+}

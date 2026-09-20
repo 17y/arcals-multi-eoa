@@ -1,0 +1,28 @@
+{
+  "storyId": "vault.three-items-active",
+  "mode": "local-fixture",
+  "schema": "VaultEnvelope",
+  "signaturesIncluded": false,
+  "note": "Three local Arcals are banked in FIFO order; the next reform must use #1 or accept the execution-time head.",
+  "value": {
+    "ok": true,
+    "schemaVersion": "1",
+    "requestId": "00000000-0000-4000-8000-000000000010",
+    "data": {
+      "head": "0",
+      "tail": "3",
+      "bankedCount": "3",
+      "nextId": "1",
+      "conversionOpen": true
+    },
+    "error": null,
+    "meta": {
+      "environmentId": "31337:0x1000000000000000000000000000000000000001",
+      "asOf": "2026-09-11T00:00:00Z",
+      "indexedBlock": "100",
+      "indexedBlockHash": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "chainTip": "100",
+      "stale": false
+    }
+  }
+}

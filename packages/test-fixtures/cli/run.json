@@ -1,0 +1,22 @@
+{
+  "storyId": "cli.run.complete",
+  "mode": "local-fixture",
+  "schema": "CliEnvelope",
+  "signaturesIncluded": false,
+  "note": "A bounded continuous run stops at its wallet-enforced authorization.",
+  "value": {
+    "ok": true,
+    "schemaVersion": "1",
+    "command": "run",
+    "state": "COMPLETE",
+    "operationId": null,
+    "chainId": "31337",
+    "wallet": "0x2000000000000000000000000000000000000002",
+    "txHash": null,
+    "data": {
+      "completed": 2
+    },
+    "error": null,
+    "asOf": "2026-09-12T00:00:00Z"
+  }
+}

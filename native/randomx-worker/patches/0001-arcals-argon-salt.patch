@@ -1,0 +1,25 @@
+diff --git a/src/configuration.h b/src/configuration.h
+index dbb2480..270ab51 100644
+--- a/src/configuration.h
++++ b/src/configuration.h
+@@ -38,7 +38,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ #define RANDOMX_ARGON_LANES        1
+ 
+ //Argon2d salt
+-#define RANDOMX_ARGON_SALT         "RandomX\x03"
++#define RANDOMX_ARGON_SALT         "Arcals-RandomX-v1"
+ 
+ //Number of random Cache accesses per Dataset item. Minimum is 2.
+ #define RANDOMX_CACHE_ACCESSES     8
+diff --git a/src/asm/configuration.asm b/src/asm/configuration.asm
+index 7b16f6a..62b4e7b 100644
+--- a/src/asm/configuration.asm
++++ b/src/asm/configuration.asm
+@@ -2,6 +2,6 @@ RANDOMX_ARGON_MEMORY EQU 262144t
+ RANDOMX_ARGON_ITERATIONS EQU 3t
+ RANDOMX_ARGON_LANES EQU 1t
+-RANDOMX_ARGON_SALT TEXTEQU <"RandomX\x03">
++RANDOMX_ARGON_SALT TEXTEQU <"Arcals-RandomX-v1">
+ RANDOMX_CACHE_ACCESSES EQU 8t
+ RANDOMX_SUPERSCALAR_LATENCY EQU 170t
+ RANDOMX_DATASET_BASE_SIZE EQU 2147483648t

@@ -1,0 +1,38 @@
+{
+  "storyId": "arcal.registered-unbanked",
+  "mode": "local-fixture",
+  "schema": "ArcalEnvelope",
+  "signaturesIncluded": false,
+  "note": "Natural digit facts are not rarity or rank fields.",
+  "value": {
+    "ok": true,
+    "schemaVersion": "1",
+    "requestId": "00000000-0000-4000-8000-000000000005",
+    "data": {
+      "environmentId": "31337:0x1000000000000000000000000000000000000001",
+      "id": "1",
+      "originalMinter": "0x2000000000000000000000000000000000000002",
+      "owner": "0x2000000000000000000000000000000000000002",
+      "contentStatus": "REGISTERED",
+      "formState": "UNBANKED",
+      "startDigit": "1",
+      "endDigit": "360",
+      "contentHash": "0xbeaa2dbcaf39539dbef45e16f745dae6fb8af8557e111fb8406e570b4c995666",
+      "datasetRoot": "0x93581ce2887691598e3b7db5ef51a954a75d407f6a022bbe26666578de8ded30",
+      "packedDigitsUrl": "https://fixtures.invalid/pi/1",
+      "workReceiptHash": "0xb860ae41c520a336613cfdfbc5da0fbd071897df022d78168f18f7cc01864b52",
+      "workVerification": "verified",
+      "queuePosition": null,
+      "lastUpdatedBlock": "100"
+    },
+    "error": null,
+    "meta": {
+      "environmentId": "31337:0x1000000000000000000000000000000000000001",
+      "asOf": "2026-09-11T00:00:00Z",
+      "indexedBlock": "100",
+      "indexedBlockHash": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "chainTip": "100",
+      "stale": false
+    }
+  }
+}

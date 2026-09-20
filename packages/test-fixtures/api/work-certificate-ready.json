@@ -1,0 +1,36 @@
+{
+  "storyId": "mint.certificate-ready",
+  "mode": "local-fixture",
+  "schema": "WorkJobEnvelope",
+  "signaturesIncluded": false,
+  "note": "The verifier signature is intentionally omitted and must be generated at test runtime.",
+  "value": {
+    "ok": true,
+    "schemaVersion": "1",
+    "requestId": "00000000-0000-4000-8000-000000000003",
+    "data": {
+      "jobId": "10000000-0000-4000-8000-000000000003",
+      "status": "CERTIFICATE_READY",
+      "certificate": {
+        "protocolVersion": 1,
+        "challengeHash": "0xfa06db20a4f303aebb5006821b71e773d94733a0487dbe8961c74650342cfb09",
+        "workNonce": "72623859790382856",
+        "randomxHash": "0x00000abc00000000000000000000000000000000000000000000000000000000",
+        "issuedAt": "1700000100",
+        "expiresAt": "1700000400",
+        "signerVersion": "3"
+      },
+      "verifierSignature": null,
+      "error": null
+    },
+    "error": null,
+    "meta": {
+      "environmentId": "31337:0x1000000000000000000000000000000000000001",
+      "asOf": "2026-09-11T00:00:00Z",
+      "indexedBlock": "100",
+      "indexedBlockHash": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "chainTip": "100",
+      "stale": false
+    }
+  }
+}
