@@ -5,7 +5,7 @@
   "maxWallets": 12,
   "maxConcurrency": "auto",
   "miningThreads": "auto",
-  "sessionMinutes": 10080,
+  "sessionMinutes": 360,
   "funderReserveUSDC": "0.001",
   "minimumWorkerGasUSDC": "0.001"
 }

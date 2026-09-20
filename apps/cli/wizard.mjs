@@ -1,7 +1,14 @@
 #!/usr/bin/env node
 
 import { spawn, spawnSync } from "node:child_process";
-import { chmodSync, copyFileSync, existsSync, readFileSync } from "node:fs";
+import {
+  appendFileSync,
+  chmodSync,
+  copyFileSync,
+  existsSync,
+  mkdirSync,
+  readFileSync,
+} from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { createInterface } from "node:readline/promises";
 import { fileURLToPath } from "node:url";
@@ -19,6 +26,121 @@ const buildSentinel = join(repositoryRoot, "apps/cli/dist/index.js");
 const manifestPath = join(repositoryRoot, "manifests/arc-mainnet.json");
 
 let activeChild = null;
+
+const PROGRESS_INTERVAL_MS = 30_000;
+const PROGRESS_MINT_STEP = 5;
+
+function elapsedText(elapsedMs) {
+  const totalSeconds = Math.max(0, Math.floor(elapsedMs / 1_000));
+  const hours = Math.floor(totalSeconds / 3_600);
+  const minutes = Math.floor((totalSeconds % 3_600) / 60);
+  const seconds = totalSeconds % 60;
+  if (hours > 0) return `${String(hours)}小时${String(minutes)}分`;
+  if (minutes > 0) return `${String(minutes)}分${String(seconds)}秒`;
+  return `${String(seconds)}秒`;
+}
+
+export class MintProgressSummary {
+  constructor(nowMs = Date.now()) {
+    this.startedAt = nowMs;
+    this.lastPrintedAt = 0;
+    this.lastPrintedConfirmed = -1;
+    this.wallets = 0;
+    this.maximumMints = 0;
+    this.confirmed = 0;
+    this.finishedWallets = new Set();
+    this.retryCount = 0;
+    this.started = false;
+    this.terminal = false;
+  }
+
+  summary(nowMs = Date.now()) {
+    const maximum = Math.max(0, this.maximumMints);
+    const confirmed = Math.min(Math.max(0, this.confirmed), maximum);
+    const remaining = Math.max(0, maximum - confirmed);
+    const percent = maximum === 0 ? 0 : Math.floor((confirmed * 100) / maximum);
+    return `进度：${String(confirmed)}/${String(maximum)}（${String(percent)}%）｜剩余 ${String(remaining)}｜已结束钱包 ${String(this.finishedWallets.size)}/${String(this.wallets)}｜自动重试 ${String(this.retryCount)}｜运行 ${elapsedText(nowMs - this.startedAt)}`;
+  }
+
+  maybeSummary(nowMs, force = false) {
+    if (!this.started || this.terminal) return [];
+    const timeDue = nowMs - this.lastPrintedAt >= PROGRESS_INTERVAL_MS;
+    const mintDue =
+      this.confirmed >= this.lastPrintedConfirmed + PROGRESS_MINT_STEP;
+    if (!force && !timeDue && !mintDue) return [];
+    this.lastPrintedAt = nowMs;
+    this.lastPrintedConfirmed = this.confirmed;
+    return [this.summary(nowMs)];
+  }
+
+  tick(nowMs = Date.now()) {
+    return this.maybeSummary(nowMs);
+  }
+
+  event(event, nowMs = Date.now()) {
+    if (event.state === "RUNNING" && event.fundingWallet === undefined) {
+      this.started = true;
+      this.startedAt = nowMs;
+      this.wallets = Number(event.wallets ?? 0);
+      this.maximumMints = Number(event.maximumMints ?? 0);
+      this.confirmed = Number(event.confirmedMints ?? 0);
+      this.lastPrintedAt = nowMs;
+      this.lastPrintedConfirmed = this.confirmed;
+      return [
+        `Mint 已启动：${String(this.wallets)} 个钱包，最多 ${String(event.maxConcurrency)} 路并发。`,
+        this.summary(nowMs),
+      ];
+    }
+
+    if (event.state === "LANE_RESULT") {
+      if (event.ok && event.resultState === "MINT_CONFIRMED") {
+        this.confirmed += 1;
+        return this.maybeSummary(nowMs);
+      }
+      if (!event.ok && event.error?.code !== "INSUFFICIENT_FUNDS") {
+        const wallet =
+          event.index === undefined ? "" : `钱包 ${String(event.index)}：`;
+        return [`${wallet}Mint 暂未完成，程序将自动重试或安全停止该钱包。`];
+      }
+      return [];
+    }
+
+    if (event.state === "LANE_RETRY") {
+      this.retryCount += 1;
+      if (this.retryCount === 1 || this.retryCount % 5 === 0) {
+        return [
+          `网络或服务暂时不可用，正在自动重试（累计 ${String(this.retryCount)} 次）。`,
+        ];
+      }
+      return [];
+    }
+
+    if (event.state === "LANE_COMPLETE") {
+      this.finishedWallets.add(event.index);
+      return this.maybeSummary(nowMs, true);
+    }
+
+    if (["COMPLETE", "NEEDS_ATTENTION", "STOPPED"].includes(event.state)) {
+      const results = Array.isArray(event.results) ? event.results : [];
+      for (const result of results) {
+        if (["COMPLETE", "BALANCE_EXHAUSTED"].includes(result.state)) {
+          this.finishedWallets.add(result.index);
+        }
+      }
+      const lines = this.started ? [this.summary(nowMs)] : [];
+      this.terminal = true;
+      return [...lines, ...describeEvent(event)];
+    }
+
+    if (event.state === "STOPPED_ERROR") {
+      this.terminal = true;
+      return describeEvent(event);
+    }
+
+    if (event.lane !== undefined) return [];
+    return describeEvent(event);
+  }
+}
 
 export function nodeVersionSupported(version = process.versions.node) {
   const [major = 0, minor = 0] = version
@@ -227,6 +349,26 @@ async function runCli(command, execute = false) {
   });
   activeChild = child;
   const events = [];
+  const aggregate =
+    execute && (command === "run" || command === "resume")
+      ? new MintProgressSummary()
+      : null;
+  const detailLogPath =
+    aggregate === null
+      ? null
+      : join(localPaths().stateDir, "mint-events.jsonl");
+  if (detailLogPath !== null) {
+    mkdirSync(dirname(detailLogPath), { recursive: true, mode: 0o700 });
+  }
+  const progressTimer =
+    aggregate === null
+      ? null
+      : setInterval(() => {
+          for (const description of aggregate.tick()) {
+            process.stdout.write(`${description}\n`);
+          }
+        }, 1_000);
+  progressTimer?.unref();
   child.stderr.on("data", (chunk) => process.stderr.write(chunk));
   const closed = new Promise((resolveClose) => {
     child.once("close", (code) => resolveClose(code ?? 1));
@@ -241,13 +383,22 @@ async function runCli(command, execute = false) {
       continue;
     }
     events.push(parsed);
-    const descriptions = describeEvent(parsed);
+    if (detailLogPath !== null) {
+      appendFileSync(
+        detailLogPath,
+        `${JSON.stringify({ recordedAt: new Date().toISOString(), ...parsed })}\n`,
+        { encoding: "utf8", mode: 0o600 },
+      );
+    }
+    const descriptions =
+      aggregate === null ? describeEvent(parsed) : aggregate.event(parsed);
     if (descriptions.length === 0) continue;
     for (const description of descriptions) {
       process.stdout.write(`${description}\n`);
     }
   }
   const code = await closed;
+  if (progressTimer !== null) clearInterval(progressTimer);
   activeChild = null;
   return { code, events };
 }
@@ -283,6 +434,26 @@ async function guidedStart(io) {
       return;
     }
     address = fundingAddress();
+  }
+
+  if (hasRuntimeState()) {
+    process.stdout.write(
+      "\n检测到已经确认的分配记录，将直接从现有工作钱包恢复 Mint，不会再次转账。\n",
+    );
+    await runCli("status");
+    const approval = (await io.question("确认恢复请输入 START："))
+      .trim()
+      .toUpperCase();
+    if (approval !== "START") {
+      process.stdout.write("已取消，没有发送交易。\n");
+      await pause(io);
+      return;
+    }
+    printRule();
+    process.stdout.write("正在恢复原任务……\n");
+    await runCli("resume", true);
+    await pause(io);
+    return;
   }
 
   process.stdout.write("\n请向下面地址充值 Arc Mainnet 原生 USDC：\n\n");

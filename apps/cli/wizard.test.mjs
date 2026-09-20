@@ -7,12 +7,96 @@ import { test } from "node:test";
 import { fileURLToPath } from "node:url";
 
 import {
+  MintProgressSummary,
   describeEvent,
   nodeVersionSupported,
   platformSupported,
   shouldResume,
   workerPlatformKey,
 } from "./wizard.mjs";
+
+test("wizard aggregates routine Mint events into low-frequency progress", () => {
+  const progress = new MintProgressSummary(1_000);
+  assert.deepEqual(
+    progress.event(
+      {
+        state: "RUNNING",
+        wallets: 12,
+        maxConcurrency: 12,
+        maximumMints: 84,
+        confirmedMints: 12,
+      },
+      2_000,
+    ),
+    [
+      "Mint 已启动：12 个钱包，最多 12 路并发。",
+      "进度：12/84（14%）｜剩余 72｜已结束钱包 0/12｜自动重试 0｜运行 0秒",
+    ],
+  );
+  assert.deepEqual(
+    progress.event(
+      {
+        state: "COMPUTING",
+        lane: 1,
+        detail: { threads: "16" },
+      },
+      3_000,
+    ),
+    [],
+  );
+  for (let index = 0; index < 4; index += 1) {
+    assert.deepEqual(
+      progress.event(
+        { state: "LANE_RESULT", ok: true, resultState: "MINT_CONFIRMED" },
+        4_000 + index,
+      ),
+      [],
+    );
+  }
+  assert.deepEqual(
+    progress.event(
+      { state: "LANE_RESULT", ok: true, resultState: "MINT_CONFIRMED" },
+      5_000,
+    ),
+    ["进度：17/84（20%）｜剩余 67｜已结束钱包 0/12｜自动重试 0｜运行 3秒"],
+  );
+  assert.deepEqual(progress.tick(35_000), [
+    "进度：17/84（20%）｜剩余 67｜已结束钱包 0/12｜自动重试 0｜运行 33秒",
+  ]);
+});
+
+test("wizard reports retries compactly and prints a final aggregate", () => {
+  const progress = new MintProgressSummary(0);
+  progress.event(
+    {
+      state: "RUNNING",
+      wallets: 2,
+      maxConcurrency: 2,
+      maximumMints: 4,
+      confirmedMints: 3,
+    },
+    1_000,
+  );
+  assert.deepEqual(progress.event({ state: "LANE_RETRY", index: 1 }, 2_000), [
+    "网络或服务暂时不可用，正在自动重试（累计 1 次）。",
+  ]);
+  assert.deepEqual(
+    progress.event(
+      {
+        state: "COMPLETE",
+        results: [
+          { index: 1, state: "COMPLETE" },
+          { index: 2, state: "BALANCE_EXHAUSTED" },
+        ],
+      },
+      3_000,
+    ),
+    [
+      "进度：3/4（75%）｜剩余 1｜已结束钱包 2/2｜自动重试 1｜运行 2秒",
+      "全部钱包已完成，或余额已不足下一次 Mint。",
+    ],
+  );
+});
 
 test("wizard enforces the documented Node.js minimum", () => {
   assert.equal(nodeVersionSupported("22.21.9"), false);

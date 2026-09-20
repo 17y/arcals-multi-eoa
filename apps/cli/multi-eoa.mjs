@@ -775,6 +775,10 @@ async function mintCommand(
         index: walletRecord.index,
         address: walletRecord.address,
         maxMints: plan.maxMints,
+        confirmedMints: operations().filter(
+          (operation) =>
+            operation.kind === "MINT" && operation.state === "MINT_CONFIRMED",
+        ).length,
         runtime,
         ledger,
       });
@@ -784,6 +788,10 @@ async function mintCommand(
       wallets: runtimes.length,
       maxConcurrency: Math.min(config.maxConcurrency, runtimes.length),
       maximumMints: session.lanes.reduce((sum, lane) => sum + lane.maxMints, 0),
+      confirmedMints: runtimes.reduce(
+        (sum, runtime) => sum + runtime.confirmedMints,
+        0,
+      ),
       sharedRandomX: true,
       expiresAt: session.expiresAt,
     });
