@@ -9,7 +9,9 @@ import { fileURLToPath } from "node:url";
 import {
   describeEvent,
   nodeVersionSupported,
+  platformSupported,
   shouldResume,
+  workerPlatformKey,
 } from "./wizard.mjs";
 
 test("wizard enforces the documented Node.js minimum", () => {
@@ -25,6 +27,24 @@ test("wizard chooses resume when wallet or runtime state already exists", () => 
   );
   assert.equal(shouldResume({ workersExist: true, stateExists: false }), true);
   assert.equal(shouldResume({ workersExist: false, stateExists: true }), true);
+});
+
+test("wizard maps every operating system to the shared worker manifest", () => {
+  const manifest = {
+    worker: {
+      platforms: {
+        "darwin-arm64": {},
+        "linux-x64": {},
+        "linux-arm64": {},
+        "win32-x64": {},
+      },
+    },
+  };
+  assert.equal(workerPlatformKey("win32", "x64"), "win32-x64");
+  assert.equal(platformSupported(manifest, "darwin", "arm64"), true);
+  assert.equal(platformSupported(manifest, "linux", "x64"), true);
+  assert.equal(platformSupported(manifest, "win32", "x64"), true);
+  assert.equal(platformSupported(manifest, "darwin", "x64"), false);
 });
 
 test("wizard turns machine plans into readable Chinese output", () => {

@@ -16,6 +16,7 @@ const configPath = resolve(
 const exampleConfigPath = join(repositoryRoot, "multi-eoa.config.example.json");
 const cliPath = join(repositoryRoot, "apps/cli/multi-eoa.mjs");
 const buildSentinel = join(repositoryRoot, "apps/cli/dist/index.js");
+const manifestPath = join(repositoryRoot, "manifests/arc-mainnet.json");
 
 let activeChild = null;
 
@@ -29,6 +30,24 @@ export function nodeVersionSupported(version = process.versions.node) {
 
 export function shouldResume({ workersExist, stateExists }) {
   return workersExist || stateExists;
+}
+
+export function workerPlatformKey(
+  platform = process.platform,
+  architecture = process.arch,
+) {
+  return `${platform}-${architecture}`;
+}
+
+export function platformSupported(
+  manifest,
+  platform = process.platform,
+  architecture = process.arch,
+) {
+  return Object.hasOwn(
+    manifest?.worker?.platforms ?? {},
+    workerPlatformKey(platform, architecture),
+  );
 }
 
 export function describeEvent(event) {
@@ -139,6 +158,12 @@ function ensureSetup() {
   if (!nodeVersionSupported()) {
     throw new Error(
       `Node.js 版本过低（当前 ${process.versions.node}），需要 22.22 或更高版本。`,
+    );
+  }
+  const manifest = JSON.parse(readFileSync(manifestPath, "utf8"));
+  if (!platformSupported(manifest)) {
+    throw new Error(
+      `当前系统不受支持（${workerPlatformKey()}）。支持：macOS Apple Silicon、Windows x64、Linux x64/arm64。`,
     );
   }
   const [command, prefix] = packageManager();

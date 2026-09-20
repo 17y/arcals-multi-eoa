@@ -6,14 +6,14 @@
 
 ## 直接启动
 
-先安装 [Node.js 22.22+](https://nodejs.org/)，然后打开对应入口：
+先安装 [Node.js 22.22+](https://nodejs.org/)，然后打开名为 `START` 的入口：
 
-- macOS：双击 `START-MAC.command`
-- Windows：双击 `START-WINDOWS.cmd`
-- Linux：运行 `./start-linux.sh`
-- 终端通用方式：`pnpm start`
+- macOS Apple Silicon：双击 `START.command`
+- Windows x64：双击 `START.cmd`
+- Linux x64/arm64：运行 `./START.sh`
+- 所有系统的统一终端命令：`npm start`
 
-首次启动会自动安装依赖、编译程序并创建本地配置。以后仍使用同一个入口。
+三个启动文件只负责打开同一个跨平台向导，界面和流程完全相同。首次启动会自动检查系统、安装依赖、编译程序并创建本地配置；以后仍使用同一个入口。不支持的系统会在创建钱包前停止并说明原因。
 
 向导会依次完成：
 
