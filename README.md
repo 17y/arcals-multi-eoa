@@ -1,58 +1,48 @@
 # Arcals Multi-EOA Mint
 
-本地生成资金钱包和多个工作钱包，在 Arc Mainnet 上等额分配原生 USDC，并由工作钱包并发 Mint，直到余额不足下一次 `0.1 USDC + Gas`。
+一个入口完成创建钱包、充值检查、自动分配和多钱包 Mint。程序会根据电脑性能选择钱包数量，并持续运行到各钱包余额不足下一次 `0.1 USDC + Gas`。
 
-> 本程序会保存私钥并可发送真实主网交易。请先预览命令，只投入可承受损失的资金，绝不要分享 `private/`。
+> 会生成私钥并发送真实 Arc Mainnet 交易。只充值你能承受损失的资金，绝不要分享 `private/`。
 
-## 准备
+## 直接启动
 
-需要 Node.js 22.22+、pnpm 10.33，以及 Linux x64/arm64、macOS arm64 或 Windows x64。
+先安装 [Node.js 22.22+](https://nodejs.org/)，然后打开对应入口：
+
+- macOS：双击 `START-MAC.command`
+- Windows：双击 `START-WINDOWS.cmd`
+- Linux：运行 `./start-linux.sh`
+- 终端通用方式：`pnpm start`
+
+首次启动会自动安装依赖、编译程序并创建本地配置。以后仍使用同一个入口。
+
+向导会依次完成：
+
+1. 在本机创建一个资金钱包，并显示充值地址；
+2. 等待用户充值 Arc Mainnet 原生 USDC；
+3. 检查余额以及 CPU、内存对应的钱包和并发数量；
+4. 再次确认后，创建工作钱包并等额分配 USDC；
+5. 自动并发 Mint，直到余额不足下一次 Mint；
+6. 中断后从同一入口查看状态、恢复或请求停止。
+
+创建钱包和发送真实交易前都会明确确认。菜单里的余额查询、状态查询和预览不会签名交易。
+
+## 安全
+
+- 钱包、私钥、分配恢复日志和运行账本位于 `private/`，并被 Git 忽略。
+- 不要上传、截图、复制或分享 `private/`；删除它可能永久失去钱包。
+- `Ctrl+C` 或菜单中的停止只阻止新的签名，已经广播的交易仍可能确认。
+- “余额耗尽”表示余额不足下一次 Mint 和最大 Gas，通常会留下少量 USDC。
+
+## 开发验证
 
 ```sh
 corepack enable
 pnpm install --frozen-lockfile
-pnpm build
-cp multi-eoa.config.example.json multi-eoa.config.json
-```
-
-## 使用
-
-命令默认只预览；`init`、`run`、`resume` 只有加 `--execute` 才会创建密钥或签名交易。
-
-```sh
-# 1. 创建资金钱包，并记录输出的 fundingAddress
-node apps/cli/multi-eoa.mjs init multi-eoa.config.json --execute
-
-# 2. 向 fundingAddress 充值 Arc Mainnet 原生 USDC 后查看方案
-node apps/cli/multi-eoa.mjs plan multi-eoa.config.json
-
-# 3. 先预览，再等额分配并开始 Mint
-node apps/cli/multi-eoa.mjs run multi-eoa.config.json
-node apps/cli/multi-eoa.mjs run multi-eoa.config.json --execute
-```
-
-程序会根据 CPU、内存和 `maxWallets` 自动选择 1–12 个工作钱包。每个钱包以启动余额为本次会话的支出上限；余额不足下一次 Mint 和最大 Gas 时停止，因此通常会留下少量余额。
-
-中断后保留 `private/`，使用同一配置恢复：
-
-```sh
-node apps/cli/multi-eoa.mjs resume multi-eoa.config.json --execute
-node apps/cli/multi-eoa.mjs status multi-eoa.config.json
-node apps/cli/multi-eoa.mjs stop multi-eoa.config.json
-```
-
-`stop` 只阻止新的签名，已广播的交易仍可能确认。钱包、恢复日志和运行状态都保存在被 Git 忽略的 `private/`；不要同时运行两个实例，也不要复制、提交或分享该目录。
-
-配置示例见 [`multi-eoa.config.example.json`](multi-eoa.config.example.json)。默认配置会保留资金钱包余额，并要求每个工作钱包除首张 Mint 外还有最低 Gas 余量。
-
-## 验证
-
-```sh
 pnpm typecheck
 pnpm test
 ```
 
-项目基于 Arcals 官方 MIT 客户端的协议、SDK、合约绑定和 RandomX worker。固定的链上地址、部署信息及 worker 校验值位于 `manifests/arc-mainnet.json`。
+高级命令仍可直接使用 `node apps/cli/multi-eoa.mjs ...`。配置示例见 [`multi-eoa.config.example.json`](multi-eoa.config.example.json)。
 
 ## License
 

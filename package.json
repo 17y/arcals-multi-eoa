@@ -9,10 +9,11 @@
     "pnpm": ">=10.33.0"
   },
   "scripts": {
+    "start": "node apps/cli/wizard.mjs",
     "build": "pnpm -r --if-present build",
     "typecheck": "pnpm build && pnpm -r --if-present typecheck",
     "test": "pnpm build && pnpm run test:eoa && pnpm -r --if-present test",
-    "test:eoa": "node --test apps/cli/multi-eoa.test.mjs apps/cli/evm-batch.test.mjs",
+    "test:eoa": "node --test apps/cli/multi-eoa.test.mjs apps/cli/evm-batch.test.mjs apps/cli/wizard.test.mjs",
     "format:check": "prettier --check \"**/*.{json,yaml,yml,ts,mjs,md}\"",
     "randomx:build": "bash native/randomx-worker/scripts/build.sh",
     "randomx:check": "pnpm --filter @arcals/protocol build && bash native/randomx-worker/scripts/test-upstream.sh && bash native/randomx-worker/scripts/build.sh && tsx tools/benchmark/src/integration.ts",
